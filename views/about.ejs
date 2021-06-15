@@ -1,0 +1,66 @@
+<div>
+    <div id="languageChanger">
+    </div>
+    <div class="panel panel-primary homePageDescription">
+            <div class="panel-heading">
+                   <h1 class="text-center" id="aboutusTitle"></h1>
+            </div>
+        <div class="panel-body">
+            <div class="aboutus" id="aboutUsDescription">
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload=function(){
+        languageTigrinaAtAboutPage()
+    }
+    function languageTigrinaAtAboutPage(){
+        if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+            document.getElementById('aboutusTitle').textContent='ብዛዕባና';
+              document.getElementById('aboutUsDescription').innerHTML=`<span>
+                      ድልየት ዓማዊል ንምምላእ እቲ ቀዳማይ ደረጃ ንሰርዕ ኣብዚ መርበብና ኢዩ።ስራሕ ንምርካብን ስራሕ ዘለዎም ሰባት ስራሕ ምልጣፍን ኣብ ብዙሓት መርበባት ከርከብ ይከኣል ኢዩ ተኾነ ግን ኣብርእዚ እዚ ተወሳኺ ዕዮታት ብምውሳኽን ንተጠቀምቲ ብቅልል ዝበለ ደረጃ ጌርና ኣቅሪብናዮ ኣለና።እቲ ቀንዲ ወሲኽናዮ ዘለና ቁምነገር ብኸመይ ሰራሕተኛ ወይ ስራሕ ዝደሊ ሰብ ምስ ኣስራሓይ ወይ ስራሕ ዘለዎ ሰብ ነራኽቦ ኢዩ።በዚ መሰረት ኢና ነዚ መርበብና ፈጢርናዮ ዘለና። <br>
+                      <p>ስለዚ መርበብ Yourhelplab ነዞም ዝስዕቡ ኣብ ግምት ተእቱ:</p>
+                <ul>
+                    <li>ኣስራሓይ</li> 
+                    <li> ሰራሕተኛ</li>
+                </ul>
+                </span>
+            <span>እዞም ዝተጠቅሱ ኣብዚ መርበብና ክርኢዩን ከንቡቡን ክፍትሹን ከምኡ ውን ተመዝጊቡም ተሳተፍቲ ክኾኑን ይከኣል።</span>`
+            document.getElementById('menuHome').textContent='ስራሕ';
+            document.getElementById('menuLogin').textContent='መእተዊ ገጽ';
+            document.getElementById('menuAbout').textContent='ብዛዕባና';
+            document.getElementById('menuContact').textContent='ክንርከበሉ ንኽእል';
+            document.getElementById('menuRegister').textContent='መመዝገቢ';
+            document.getElementById('webTitle').textContent='ቤት ዕዮ'
+            document.getElementById('menuJob').textContent='ስራሕ';
+            document.getElementById('menuJobRegister').textContent='ምዝገባ ስራሕ';
+            document.getElementById('logoutId').textContent='መውጽኢ'
+        }else{
+            document.getElementById('aboutusTitle').textContent='About us';
+            document.getElementById('aboutUsDescription').innerHTML=`
+                  <div>
+                    This platform was developed to connect employer and employee in the most effective way possible. Customer demand has always been the driving force for the development of this platform. Our team at Yourhelplab.com is continuously working to optimize the platforms performance. We as developers and specialists in web technology strive to make this platform accessible to everyone. We aim to connect those looking for a job with for those looking professionals to get a job done. But aside from professional we also aim to find work for those without a profession. In short: we are young people aiming to make life easier for everyone.
+                    <br>
+                    Yourhelplab has developed this platform for:<br>
+
+                    <ul>
+                        <li>Employers</li>
+                        <li>Employees</li>
+                    </ul>
+
+                    All these parties can easily view, share and register their own job offers.
+                    `
+            document.getElementById('menuHome').textContent='Home';
+            document.getElementById('menuLogin').textContent='Login';
+            document.getElementById('menuAbout').textContent='About us';
+            document.getElementById('menuContact').textContent='Contact us';
+            document.getElementById('translationMenu').textContent='Translation'
+            document.getElementById('menuRegister').textContent='Register';
+            document.getElementById('menuJob').textContent='Job';
+            document.getElementById('menuJobRegister').textContent='Job registration';
+            document.getElementById('logoutId').textContent='Logout'
+        }
+     }
+</script>

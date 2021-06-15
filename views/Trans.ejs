@@ -1,0 +1,74 @@
+<div id="wordTranslationTab">
+    <div class="input-group">
+        <input type="text" id="inputWord"><button onClick="searchWord()">Search</button>
+    </div><br>
+    <div id="translationUpdateinputForm" class="input-group">
+         <input type="text" id="translationId" disabled>
+         <input type="text" id="translationenglish">
+         <input type="text" id="translationword_tigrina"  disabled> <button onClick="updateTranslation()" class="btn-primary">Update</button>
+    </div>
+    <p id="updateResults"></p>
+    <p id="showDataFromTranslationTable"></p>
+</div>
+<script>
+ let translationUpdateinputForm=document.getElementById('translationUpdateinputForm')
+ translationUpdateinputForm.style.display='none'
+ function updateThisTranslation(id,english,tigrina){
+   document.getElementById('translationId').value=id;
+   document.getElementById('translationenglish').value=english;
+   document.getElementById('translationword_tigrina').value=tigrina
+   translationUpdateinputForm.style.display='block';
+  }
+function searchWord(){
+       var inputWord=document.getElementById('inputWord').value
+       if(inputWord=='' || inputWord==null){
+        document.getElementById('updateResults').textContent='Fill word first.' 
+        document.getElementById('updateResults').style.color='red'
+       }else{
+        document.getElementById('updateResults').textContent=''
+            axios.get('/getTigrinaTranslation/'+inputWord).then(function(response){
+                var col = [];
+                        for (var i = 0; i < response.data.length; i++) {
+                            for (var key in response.data[i]) {
+                                if (col.indexOf(key) === -1) {
+                                    col.push(key);
+                                }
+                                
+                            }
+                        }
+                        // col.push('Action');
+
+                        // CREATE DYNAMIC TABLE.
+                        var table = document.createElement("table");
+
+                        // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+                        var tr = table.insertRow(-1);                   // TABLE ROW.
+
+                        for (var i = 0; i < col.length; i++) {
+                            var th = document.createElement("th");      // TABLE HEADER.
+                            th.innerHTML = col[i]
+                            tr.appendChild(th);
+                        }
+
+                        // ADD JSON DATA TO THE TABLE AS ROWS.
+                        for (var i = 0; i < response.data.length; i++) {
+
+                            tr = table.insertRow(-1);
+
+                            for (var j = 0; j < col.length; j++) {
+                                var tabCell = tr.insertCell(-1);
+                                tabCell.innerHTML = '<a  onClick="updateThisTranslation('+response.data[i].id+",'"+response.data[i].english+"','"+response.data[i].word_tigrina+"'"+')">'+response.data[i][col[j]]+'</a>';
+                            }
+                            // tabCell.innerHTML=`<button onClick="deleteWord(${response.data[i].id})>delete word</button>`
+                        }
+
+                        // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                        var divContainer = document.getElementById("showDataFromTranslationTable");
+                        divContainer.innerHTML = "";
+                        divContainer.appendChild(table);
+            })
+           
+        }
+   }
+</script>

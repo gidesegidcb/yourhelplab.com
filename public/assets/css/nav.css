@@ -1,0 +1,83 @@
+.icon{
+    font-size:10px;
+}
+.navBarButton{
+    font-size:12px;
+}
+.active{
+    background-color:rgb(226, 228, 220);
+    font-weight: bold;
+    /* opacity: 1; */
+}
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+/* #mydropdownId{ */
+  /* border: 0px;
+  outline:10px;
+  color: blueviolet;
+  border: crimson;
+  border-style: dotted; */
+
+/* } */
+.webTitle{
+    font-size:20px;
+    color:rgb(16,156,255);
+    font-weight: inherit;
+    margin-bottom: 0px;
+    margin-top:10px !important;
+  }
+  /* .homeUserName{
+    margin-top:0px;
+    margin-left:20px;
+    color:rgb(16,156,255);
+  } */
+  .websiteIconAndTitle{
+      display: flex;
+      margin-top:0px;
+      margin-left: 0px;
+      margin-right:10px;
+      flex-direction: column;
+  }
+  /* nav{
+    display: inline-block;
+    padding: 10px;
+    margin-left:0px;
+  } */
+  .menu{
+    margin-top:0px;
+    margin-left:10px;
+    margin-right:20px;
+    font-size: 16px;
+  }
+  /* #dropdownMenuButton{
+    width: 150px;
+    font-size: 16px;
+  } */
+  #navbarSupportedContent{
+    font-size: 20px;
+    /* font-family: sans-serif; */
+  }
+  [data-tooltip]:before {            
+    position : absolute;
+     content : attr(data-tooltip);
+     opacity : 0;
+     margin-top:30px;
+     margin-left:-70px;
+     background-color: red;
+}
+[data-tooltip]:hover:before {        
+    opacity : 1;
+}
+[data-tooltip]:not([data-tooltip-persistent]):before {
+    pointer-events: none;
+}
+.navbar-toggler{
+  margin-top: 30px;
+  margin-left: 20px;
+}
+nav{
+  margin-top: 15px;
+  height: 20px;
+}

@@ -1,0 +1,198 @@
+<div>
+    <div id="backbtn">
+        <button onclick="back()" class="pull-right btn-primary" id="backToHomePageAtJobApplyBtnId">Back</button>
+    </div>
+    <div id="applyJobContainer">
+        <div id="userInputAtApplyForAJobContainer">
+            <div>
+                <form action="/submitUserInfoToApplyForAjob" method="post" enctype='multipart/form-data'>
+                    <div class="userInfoOnJobApply">
+                        <input type="hidden" name="language" id="language">
+                    <div>
+                        <label for="" class="text-mute" id="name">Name</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div>
+                        <label for="" class="text-mute" id="address">address</label>
+                        <input type="text" name="address" required>
+                    </div>
+                    <div>
+                        <label for="" class="text-mute" id="postcode">Post code</label>
+                        <input type="text" name="postcode" required>
+                    </div>
+                    <div>
+                        <label for="" class="text-mute" id="email">Email:</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="" class="text-mute" id="telephone">Telephone</label>
+                        <input type="tel" id="telephone" name="telephone" required>
+                    </div>
+                    </div>
+                    <div>
+                        <div id="cv">
+                        </div>
+                        <label for="" class="text-muted" id="uploadCvInfoId">Upload  CV if you don't have one yet</label>
+                        <input type="file" name="filename" id="filename" accept=".pdf"/>
+                    </div><br>
+                    <div>
+                        <label for="" class="text-muted" id="coverLetterId">Cover letter</label>
+                        <textarea name="coverLetter" id="coverLetter" cols="70" rows="10"></textarea><br>
+                        <input type="hidden" name="jobPosterEmail" id="jobPosterEmail">
+                        <input type="hidden" name="jobApplierEmail" id="jobApplierEmail">
+                        <input type="hidden" name="userId" id="userId">
+                    </div>
+                    
+                    <div>
+                        <input type="submit" class="btn-primary" id="submitForJobApplyBtnId">
+                    </div>
+                </form>
+            </div>
+        
+        </div>
+        <div id="job">
+        </div>
+    </div>
+</div>
+<script>
+    let jobId;
+    let job=document.getElementById('job')
+    let jobPosterEmail=document.getElementById('jobPosterEmail')
+    let coverLetter=document.getElementById('coverLetter')
+    let jobApplierEmail=document.getElementById('jobApplierEmail')
+    let userId=document.getElementById('userId')
+    let cv=document.getElementById('cv')
+    function back(){
+        window.location.href='/jobs'
+    }
+
+window.onload=function(){
+    languageTigrinaAtJobApplyPage()
+    jobApplierEmail.value='<%=userInfo.email%>'
+    userId.value='<%=userInfo.userId%>'
+    jobId=JSON.parse(localStorage.getItem('cameFromJobApply'))
+    axios.get('/getJobInfoOnUserApply/'+jobId).then(function(response){
+            jobPosterEmail.value=response.data[0].email;
+            let responseData=response.data;
+            var url
+            if(responseData[0].url==null){
+                url='No website'
+            }else{
+                url=responseData[0].url
+            }
+            job.innerHTML+=`
+            <div style="width: 50rem; margin-top:10px;margin-bottom:10px" class="card">
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <h3 class="card-title">${responseData[0].sector}</h3>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="pull-right">
+                            <p class="mb-2 text-muted">${responseData[0].registrationTime.split(' ')[0]}</p>
+                        </div>
+                        
+                        <div>
+                            <p class="mb-2 text-muted">${responseData[0].profession},    ${responseData[0].locations}</p>
+                            <h6 id="searchResultUrl" class="mb-2 text-muted">${url}</h6>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="card-subtitle mb-2">${responseData[0].jobDescriptionTitle}</h4>
+                        <span class="card-text text-muted">${responseData[0].description}</span>
+                    </div>
+                </div>
+                
+            </div>
+            `
+            job.style.display='block'
+    })
+    let myUserId='<%=userInfo.userId%>'
+    axios.get('/getMyCv/'+myUserId).then(function(response){
+        if(response.data[0].cv==null || response.data[0].cv==undefined || response.data[0].cv==''){
+                if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+                    cv.innerHTML=`
+                <p>ዝተጻዕነ ሲቪ የለን</p>
+                `
+                }else{
+                    cv.innerHTML=`
+                <p>No cv uploaded yet</p>
+                `
+                }
+        }else{
+            if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+                cv.innerHTML=`
+                <div class="input-group">
+                    <p class="text-mute">ሲቪ</p>:
+                    <a href="/cv/${response.data[0].cv}" download >ሲቪ</a>
+                </div>
+                `
+            }else{
+                cv.innerHTML=`
+                <div class="input-group">
+                    <p class="text-mute">Your CV</p>:
+                    <a href="/cv/${response.data[0].cv}" download >CV</a>
+                </div>
+                `
+            }
+            
+        }
+    })
+}
+function submitForm(e) {
+e.preventDefault();
+alert()
+const files = document.getElementById("filename");
+const formData = new FormData();
+formData.append("jobPosterEmail", jobPosterEmail.value);
+formData.append("coverLetter", coverLetter.value);
+formData.append("jobApplierEmail", jobApplierEmail.value);
+formData.append("userId", userId.value);
+
+    for(let i =0; i < files.files.length; i++) {
+        formData.append("filename", files.files[i]);
+    }
+fetch("http://localhost:3000/submitUserInfoToApplyForAjob", {
+    method: 'post',
+    body: formData
+})
+    .then((res) => console.log(res))
+    .catch((err) => ("Error occured", err));
+}
+var language='English';
+function languageTigrinaAtJobApplyPage(){
+    if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+        document.getElementById('language').value='Tigrina'
+        document.getElementById('menuJob').textContent='ስራሕ';
+        document.getElementById('menuApplyForAJob').textContent='ምሕታት ስራሕ'
+        document.getElementById('menuJobRegister').textContent='ምዝገባ ስራሕ';
+        document.getElementById('logoutId').textContent='መውጽኢ'
+        document.getElementById('menuSettings').textContent='መርኣዪ ሓበሬታ ናይ ኣካውንትና'
+        document.getElementById('webTitle').textContent='ቤት ዕዮ'
+        document.getElementById('name').textContent='ስም'
+        document.getElementById('address').textContent='ኣድራሻ'
+        document.getElementById('postcode').textContent='ፖስት ኮድ'
+        document.getElementById('email').textContent='ኢመይል'
+        document.getElementById('telephone').textContent='ተለፎን'
+        document.getElementById('uploadCvInfoId').textContent="ሲቪ ተዘይብልኩም ኣብዚ ጸዓንዎ"
+        document.getElementById('coverLetterId').textContent='ናይ ምትብባዕ ደብዳቤ'
+        document.getElementById('submitForJobApplyBtnId').value='ኣረክብ'
+        document.getElementById('backToHomePageAtJobApplyBtnId').textContent='ንድሕሪት ተመለስ'
+    }else{
+        document.getElementById('language').value='English'
+        document.getElementById('menuJob').textContent='Job';
+        document.getElementById('menuApplyForAJob').textContent='Apply for job'
+        document.getElementById('menuJobRegister').textContent='Job register for employers';
+        document.getElementById('logoutId').textContent='Logout'
+        document.getElementById('menuSettings').textContent='Settings'
+        document.getElementById('name').textContent='Name'
+        document.getElementById('address').textContent='Address'
+        document.getElementById('postcode').textContent='Post code'
+        document.getElementById('email').textContent='Email'
+        document.getElementById('telephone').textContent='Telephone'
+        document.getElementById('uploadCvInfoId').textContent="Upload  CV when you don't have one yet"
+        document.getElementById('coverLetterId').textContent='Motivation letter'
+        document.getElementById('submitForJobApplyBtnId').value='Submit'
+        document.getElementById('backToHomePageAtJobApplyBtnId').textContent='Back'
+    }
+}
+</script>

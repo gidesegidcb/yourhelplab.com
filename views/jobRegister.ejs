@@ -1,0 +1,819 @@
+
+  
+   <div class="jobRegistrationFormcontainer">
+      <div id="languageChanger">
+      </div>
+            <h2 id="jobRegistrationFormTitle"></h2>
+               <section>
+                  <strong id="generalInformationStrong">General information</strong>
+                  <div>
+                     <label for=""  id="yourCompanyNameLabel">Your company name</label>
+                     <input type="text"  class="" id="companyName">
+                     <p id="companyNameValidator"></p>
+                  </div>
+                  <div>
+                       <label for="" id="employerOrAgencyLabel">Are you an employer or do you work for an employment agency on behalf of an employer?</label>
+                       <div class="input-group">
+                        <input type="radio" name="" id="employerRadio" onclick="employerRadioClick()"><p id="employerP">Employer</p>
+                       </div>
+                        <div class="input-group">
+                           <input type="radio" name="" id="agencyRadio" onclick="agencyRadioClick()"><p id="agencyP">Agency</p>
+                        </div>
+                        <p id="isEmployerOrNotValidator"></p>
+                  </div>
+                  <div>
+                     <label for="" id="jobtitleLabel">Sector</label>
+                     <input type="text"  class="" id="sector">
+                     <p id="jobtitlevalidator"></p>
+                  </div>
+                  <div>
+                     <form onsubmit="return false;" class="pure-form" >
+                        <label for="" id="professionLabel">Needed profession</label>
+                           <input id="professionsIdAtJobRegistration"  type="text" name="q"     class="">
+                     </form>
+                     <p id="professionsvalidator"></p>
+                  </div>
+                  <div>
+                     <label for="" id="locationLabel">Location</label>
+                     <input id="locationsSearchOnJobRegister"  type="text" name="q"     class="">
+                     <p id="locationvalidator"></p>
+                  </div>
+                  <div>
+                     <label for="" id="remoteWorkOrNotLabel">Can this job be performed remotely or at home? Then we will add the tag 'work from home' to your vacancy</label>
+                     <div class="input-group">
+                        <input type="radio" id="remoteWorkOrNotRadioYes" onclick="remoteWorkOrNotRadioYesClick()"> <p id="remoteWorkOrNotYesP">Yes</p>
+                     </div>
+                     <div class="input-group">
+                        <input type="radio" id="remoteWorkOrNotRadioNo" onclick="remoteWorkOrNotRadioNoClick()"> <p id="remoteWorkOrNotNoP">No</p>
+                     </div>
+                     <p id="remoteWorkOrNotValidator"></p>
+                  </div>
+                  <div>
+                     <label for="" id="urllabel">Website</label>
+                     <input type="text" placeholder="Optional" class="" id="url">
+                  </div>
+                  <div>
+                     <label for="" id="yourNameLabel">Your name</label>
+                     <input type="text" id="name">
+                     <p id="namevalidator"></p>
+                  </div>
+                  <div>
+                     <label for="" id="yourTelephoneLabel">Your Telephone</label>
+                     <input type="text" id="telephone">
+                     <p id="telephonevalidator"></p>
+                  </div>
+                  <div>
+                     <label for="" id="contactMailId">Contact mail</label>
+                     <input type="email" placeholder="" class="" id="email">
+                     <p id="emailvalidator"></p>
+                  </div>
+               </section>
+               <section>
+                  <strong id="companyInformationInfoStrong">Company information</strong>
+                  <div>
+                     <label for="" id="brancheLabel">Branche</label>
+                     <select name="" id="branches">
+                        <!-- <option value="">Select branche</option> -->
+                     </select>
+                  </div>
+                  <div class="input-group" >
+                     <label for="" id="numberOfEmployeesLabel">Number of employees</label>
+                     <input type="text" id="numberOfEmployees">
+                  </div>
+               </section>
+               <section>
+                  <strong id="salaryInformationStrong">Salary and terms of employment</strong>
+                  <!-- <div> -->
+                     <div class="input-group">
+                        <label for="" id="exactSalaryLabel">Salary(Exact amount)</label>
+                        <input type="text" id="salary">
+                        <div>
+                           <p id="per">Per</p>
+                        </div><select name="" id="yearMonthDayHour">
+                        </select>
+                     </div>
+                     <p id="salaryvalidator"></p>
+                     <!-- <select name="" id="salary">
+                        <option value="">Select salary</option>
+                        <option value="">Exact amount</option>
+                        <option value="">Range</option>
+                        <option value="">From</option>
+                        <option value="">To</option>
+                     </select> -->
+                  <!-- </div> -->
+                  <div>
+                     <label for="" id="areAdditionalReimbursementsOfferedLabel">Are additional reimbursements offered?</label>
+                     <div class="input-group">
+                        <input type="checkbox" id="holidayPayment"><p id="holidayPaymentP">holiday payment</p>
+                     </div>
+                     <div class="input-group">
+                        <input type="checkbox" id="thirtinthMonth"><p id="thirtinthMonthP">13th month</p>
+                     </div>
+                     <div class="input-group">
+                        <input type="checkbox" id="paidOvertime"><p id="paidOvertimeP">Paid overtime</p>
+                     </div>
+                     <div class="input-group">
+                        <input type="checkbox" id="bonusScheme"><p id="bonusSchemeP">Bonus scheme</p>
+                     </div>
+                     <div class="input-group">
+                        <input type="checkbox" id="commission"><p id="commissionP">Commission</p>
+                     </div>
+                     <div class="input-group">
+                        <input type="checkbox" id="tip"><p id="tipP">Tip</p>
+                     </div>
+                     <div class="input-group">
+                        <input type="checkbox" id="signingBonus"><p id="signingBonusP">Signing bonus</p>
+                     </div>
+                     <div class="input-group">
+                        <input type="checkbox" id="other"><p id="otherSalaryTypeP">Other</p>
+                     </div>
+                  </div>
+               </section>
+               <section >
+                  <strong id="aboutTheJobOfferStrong">About the job offer</strong>
+                  <div>
+                     <label for="" class="alert-info" id="descriptionTitleLableId">Job Title</label>
+                     <input type="text" class="" id="jobDescriptionTitle">
+                     <p id="jobDescriptionTitleValidator"></p>
+                  </div>
+                  <div>
+                     <label for="" id="descriptionLabel" class="alert-info">Description</label>
+                     <textarea name="description" id="description"  cols="100" rows="5" class="form-control"></textarea>
+                     <p id="descriptionValidator"></p>
+                  </div>
+                  <div class="input-group">
+                     <button onClick="register()" class="btn-primary" id="registerButton">Register</button>
+                  </div>
+                  <span id="registrationResults"></span>
+               </section>
+         <!-- </div> -->
+      </div>
+      
+   </div>
+   <script src="/assets/autocomplete/auto-complete.min.js"></script>
+   <script src="/assets/autocomplete/auto-complete.js"></script>
+   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <script>
+      function changeLang(){
+         
+         if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+            localStorage.setItem("selectedLanguage",JSON.stringify('English'));
+         }else{
+            localStorage.setItem("selectedLanguage",JSON.stringify('Tigrina'));
+         }
+         // languageTigrinaAtJobRegistrationPage()
+      }
+      var language='English';
+      let agencyRadio=document.getElementById('agencyRadio')
+      let employerRadio=document.getElementById('employerRadio')
+      let isEmployer;
+      let isEmployerChecker=false;
+      let isRemoteWork;
+      let isRemoteWorkChecker=false
+      function employerRadioClick(){
+        agencyRadio.checked=false
+        isEmployer='yes'
+        isEmployerChecker=true
+        document.getElementById('isEmployerOrNotValidator').style.display='none'
+      }
+      function agencyRadioClick(){
+         employerRadio.checked=false;
+         isEmployer='no'
+         isEmployerChecker=true
+         document.getElementById('isEmployerOrNotValidator').style.display='none'
+      }
+      let remoteWorkOrNotRadioYes=document.getElementById('remoteWorkOrNotRadioYes')
+      let remoteWorkOrNotRadioNo=document.getElementById('remoteWorkOrNotRadioNo')
+      function remoteWorkOrNotRadioYesClick(){
+         remoteWorkOrNotRadioNo.checked=false
+         isRemoteWork='yes'
+         isRemoteWorkChecker=true
+         document.getElementById('remoteWorkOrNotValidator').style.display='none'
+      }
+      function remoteWorkOrNotRadioNoClick(){
+         remoteWorkOrNotRadioYes.checked=false
+         isRemoteWork='no'
+         isRemoteWorkChecker=true
+         document.getElementById('remoteWorkOrNotValidator').style.display='none'
+      }
+      let arrayOfSalaryExtras=[]
+      document.getElementById('holidayPayment').addEventListener('click',function(e){
+         if(e.target.checked==true){
+            if(arrayOfSalaryExtras.includes('Holiday Payment')){
+            }else{
+               arrayOfSalaryExtras.push('Holiday Payment')
+            }
+         }else{
+            if(arrayOfSalaryExtras.includes('Holiday Payment')){
+               arrayOfSalaryExtras.splice(arrayOfSalaryExtras.indexOf('Holiday Payment'),1)
+            }else{
+               arrayOfSalaryExtras.push('Holiday Payment')
+            }
+         }
+      })
+      document.getElementById('thirtinthMonth').addEventListener('click',function(e){
+         if(e.target.checked==true){
+            if(arrayOfSalaryExtras.includes('13th month')){
+            }else{
+               arrayOfSalaryExtras.push('13th month')
+            }
+         }else{
+            if(arrayOfSalaryExtras.includes('13th month')){
+               arrayOfSalaryExtras.splice(arrayOfSalaryExtras.indexOf('13th month'),1)
+            }else{
+               arrayOfSalaryExtras.push('13th month')
+            }
+         }
+      })
+      document.getElementById('paidOvertime').addEventListener('click',function(e){
+         if(e.target.checked==true){
+            if(arrayOfSalaryExtras.includes('Paid overtime')){
+            }else{
+               arrayOfSalaryExtras.push('Paid overtime')
+            }
+         }else{
+            if(arrayOfSalaryExtras.includes('Paid overtime')){
+               arrayOfSalaryExtras.splice(arrayOfSalaryExtras.indexOf('Paid overtime'),1)
+            }else{
+               arrayOfSalaryExtras.push('Paid overtime')
+            }
+         }
+      })
+      document.getElementById('bonusScheme').addEventListener('click',function(e){
+         if(e.target.checked==true){
+            if(arrayOfSalaryExtras.includes('Bonus scheme')){
+            }else{
+               arrayOfSalaryExtras.push('Bonus scheme')
+            }
+         }else{
+            if(arrayOfSalaryExtras.includes('Bonus scheme')){
+               arrayOfSalaryExtras.splice(arrayOfSalaryExtras.indexOf('Bonus scheme'),1)
+            }else{
+               arrayOfSalaryExtras.push('Bonus scheme')
+            }
+         }
+      })
+      document.getElementById('commission').addEventListener('click',function(e){
+         if(e.target.checked==true){
+            if(arrayOfSalaryExtras.includes('Commission')){
+            }else{
+               arrayOfSalaryExtras.push('Commission')
+            }
+         }else{
+            if(arrayOfSalaryExtras.includes('Commission')){
+               arrayOfSalaryExtras.splice(arrayOfSalaryExtras.indexOf('Commission'),1)
+            }else{
+               arrayOfSalaryExtras.push('Commission')
+            }
+         }
+      })
+      document.getElementById('tip').addEventListener('click',function(e){
+         if(e.target.checked==true){
+            if(arrayOfSalaryExtras.includes('Tip')){
+            }else{
+               arrayOfSalaryExtras.push('Tip')
+            }
+         }else{
+            if(arrayOfSalaryExtras.includes('Tip')){
+               arrayOfSalaryExtras.splice(arrayOfSalaryExtras.indexOf('Tip'),1)
+            }else{
+               arrayOfSalaryExtras.push('Tip')
+            }
+         }
+      })
+      document.getElementById('signingBonus').addEventListener('click',function(e){
+         if(e.target.checked==true){
+            if(arrayOfSalaryExtras.includes('Signing bonus')){
+            }else{
+               arrayOfSalaryExtras.push('Signing bonus')
+            }
+         }else{
+            if(arrayOfSalaryExtras.includes('Signing bonus')){
+               arrayOfSalaryExtras.splice(arrayOfSalaryExtras.indexOf('Signing bonus'),1)
+            }else{
+               arrayOfSalaryExtras.push('Signing bonus')
+            }
+         }
+      })
+      document.getElementById('other').addEventListener('click',function(e){
+         if(e.target.checked==true){
+            if(arrayOfSalaryExtras.includes('Other')){
+            }else{
+               arrayOfSalaryExtras.push('Other')
+            }
+         }else{
+            if(arrayOfSalaryExtras.includes('Other')){
+               arrayOfSalaryExtras.splice(arrayOfSalaryExtras.indexOf('Other'),1)
+            }else{
+               arrayOfSalaryExtras.push('Other')
+            }
+         }
+      })
+      
+      function myLabels(){
+         let generalInformationStrong=document.getElementById('generalInformationStrong')
+         let yourCompanyNameLabel=document.getElementById('yourCompanyNameLabel')
+         let employerOrAgencyLabel=document.getElementById('employerOrAgencyLabel')
+         let employerP=document.getElementById('employerP')
+         let agencyP=document.getElementById('agencyP')
+         let remoteWorkOrNotLabel=document.getElementById('remoteWorkOrNotLabel')
+         let remoteWorkOrNotNoP=document.getElementById('remoteWorkOrNotNoP')
+         let remoteWorkOrNotYesP=document.getElementById('remoteWorkOrNotYesP')
+         let yourNameLabel=document.getElementById('yourNameLabel')
+         let yourTelephoneLabel=document.getElementById('yourTelephoneLabel')
+         let companyInformationInfoStrong=document.getElementById('companyInformationInfoStrong')
+         let brancheLabel=document.getElementById('brancheLabel')
+         let numberOfEmployeesLabel=document.getElementById('numberOfEmployeesLabel')
+
+         let salaryInformationStrong=document.getElementById('salaryInformationStrong')
+         let exactSalaryLabel=document.getElementById('exactSalaryLabel')
+         let areAdditionalReimbursementsOfferedLabel=document.getElementById('areAdditionalReimbursementsOfferedLabel')
+         let holidayPaymentP=document.getElementById('holidayPaymentP')
+         let thirtinthMonthP=document.getElementById('thirtinthMonthP')
+         let paidOvertimeP=document.getElementById('paidOvertimeP')
+         let bonusSchemeP=document.getElementById('bonusSchemeP')
+         let commissionP=document.getElementById('commissionP')
+         let tipP=document.getElementById('tipP')
+         let signingBonusP=document.getElementById('signingBonusP')
+         let otherSalaryTypeP=document.getElementById('otherSalaryTypeP')
+         let aboutTheJobOfferStrong=document.getElementById('aboutTheJobOfferStrong')
+      }
+      function languageTigrinaAtJobRegistrationPage(){
+         if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+               document.getElementById('jobRegistrationFormTitle').textContent='መመዝገቢ ስራሕ ፎርም'
+               document.getElementById('jobtitleLabel').textContent='ኣርእስቲ ናይ ስራሕ'
+               document.getElementById('professionLabel').textContent='ዝድለ ዘሎ ሞያ';
+               document.getElementById('locationLabel').textContent='ቦታ';
+               document.getElementById('urllabel').textContent='ዌብሳይት'
+               document.getElementById('url').placeholder='ግድነት ኣይኮነን'
+               document.getElementById('descriptionTitleLableId').textContent='መግለጺ ኣርእስቲ'
+               document.getElementById('descriptionLabel').textContent='መግለጺ'
+               document.getElementById('registerButton').textContent='ስራሕ መዝግብ'
+               document.getElementById('menuJob').textContent='ስራሕ';
+               document.getElementById('menuJobRegister').textContent='ምዝገባ ስራሕ';
+               document.getElementById('menuSettings').textContent='መርኣዪ ሓበሬታ ናይ ኣካውንትና'
+               document.getElementById('logoutId').textContent='መውጽኢ'
+               document.getElementById('webTitle').textContent='ቤት ዕዮ'
+               document.getElementById('contactMailId').textContent='ኢመይል'
+               generalInformationStrong.textContent='ሓፈሻዊ ሓበሬታ'
+               yourCompanyNameLabel.textContent='ስም ናይ ካምፓኒ'
+               employerOrAgencyLabel.textContent='ኣስራሓይ ዲኹም? ወይስ ወኪል ናይ ኣስራሓይ?'
+               employerP.textContent='ኣስራሓይ'
+               agencyP.textContent='ወኪል ኣስራሓይ'
+               remoteWorkOrNotLabel.textContent='እቲ ትደልዩዎ ዘለኹም ስራሕ ፣ ብርሕቐት ክስራሕ ይኽእል ድዩ?'
+               remoteWorkOrNotNoP.textContent=' ኣይፋል'
+               remoteWorkOrNotYesP.textContent='እወ'
+               yourNameLabel.textContent='ስምኩም'
+               yourTelephoneLabel.textContent='ቁጽሪ ተለፎንኩም'
+               companyInformationInfoStrong.textContent='ናይ ካምፓኒ ሓበሬታ'
+               brancheLabel.textContent='ክፍሊ'
+               numberOfEmployeesLabel.textContent='ብዝሒ ሰራሕተኛታት ኣብዚ ካምፓኒ ዚ ዘለዉ'
+
+               salaryInformationStrong.textContent='ናይ ደሞዝን ተወሳኺ ግንዖታትን'
+               exactSalaryLabel.textContent='ነዚ ስራሕ ዚ ንምፍጻም ክትከፍልዎ ትኽእሉ ደሞዝ'
+               areAdditionalReimbursementsOfferedLabel.textContent='ተወሰኽቲ ግንዖታት ትህቡ ዲኹም?'
+               holidayPaymentP.textContent='ናይ በዓል ሞቕሹሽ(Holiday Payment)'
+               thirtinthMonthP.textContent='ኣብ መበል 13 ወርሒ(13th month)'
+               paidOvertimeP.textContent='ናይ ሕላፍ ሰዓታት(Paid Overtime)'
+               bonusSchemeP.textContent='ሞቕሹሽ(Bonus scheme)'
+               commissionP.textContent='ካብ መኽሰብ ዝርከብ ትርፊ(Commission)'
+               tipP.textContent='ግንዖ መተባብዒ(Tip)'
+               signingBonusP.textContent='ተወሳኺ ግንዖ ን መተባብዒ ኣብ ምጀመሪ ስራሕ ዝወሃብ(Signing Bonus)'
+               otherSalaryTypeP.textContent='ካልእ(Other)'
+               aboutTheJobOfferStrong.textContent='ብዛዕባ ቀንዲ ስራሕ'
+         }else{
+               document.getElementById('jobRegistrationFormTitle').textContent='Job registration form'
+               // document.getElementById('nameLabel').textContent='Name';
+               document.getElementById('contactMailId').textContent='Email';
+               document.getElementById('jobtitleLabel').textContent='Sector'
+               document.getElementById('professionLabel').textContent='Profession needed';
+               document.getElementById('locationLabel').textContent='Location';
+               document.getElementById('urllabel').textContent='Website'
+               document.getElementById('url').placeholder='optional'
+               document.getElementById('descriptionTitleLableId').textContent='Job description title'
+               document.getElementById('descriptionLabel').textContent='Description'
+               document.getElementById('registerButton').textContent='Register'
+               document.getElementById('menuJob').textContent='Job';
+               document.getElementById('menuJobRegister').textContent='Job register for employers';
+               document.getElementById('logoutId').textContent='Logout'
+
+               generalInformationStrong.textContent='General Information'
+               yourCompanyNameLabel.textContent='Your company name'
+               employerOrAgencyLabel.textContent='Are you an employer or do you work for an employment agency on behalf of an employer?'
+               employerP.textContent='Employer'
+               agencyP.textContent='Recruiter'
+               remoteWorkOrNotLabel.textContent='Can this job be performed remotely or at home? Then we will add the tag \'work from home\' to your vacancy'
+               remoteWorkOrNotNoP.textContent='No'
+               remoteWorkOrNotYesP.textContent='Yes'
+               yourNameLabel.textContent='Your name'
+               yourTelephoneLabel.textContent='Telephone'
+               companyInformationInfoStrong.textContent='Company Information'
+               brancheLabel.textContent='Branche'
+               numberOfEmployeesLabel.textContent='Number of employees'
+               salaryInformationStrong.textContent='Salary Information'
+               exactSalaryLabel.textContent='Salary(Exact amount)'
+               areAdditionalReimbursementsOfferedLabel.textContent='Are additional reimbursements offered ?'
+               holidayPaymentP.textContent='Holiday Payment'
+               thirtinthMonthP.textContent='13th month'
+               paidOvertimeP.textContent='Paid Overtime'
+               bonusSchemeP.textContent='Bonus scheme'
+               commissionP.textContent='Commission'
+               tipP.textContent='Tip'
+               signingBonusP.textContent='Signing Bonus'
+               otherSalaryTypeP.textContent='Other'
+               aboutTheJobOfferStrong.textContent='About the job offer'
+         }
+      }
+      window.onload=function(){
+         myLabels()
+         languageTigrinaAtJobRegistrationPage()
+         per()
+      }
+      let yearMonthDayHour = document.getElementById("yearMonthDayHour");
+      let selectedTime;
+      yearMonthDayHour.addEventListener('change',function(e){
+         selectedTime=e.target.options[e.target.selectedIndex].text
+         if(e.target.options[e.target.selectedIndex].text=='Month' || e.target.options[e.target.selectedIndex].text=='ወርሒ'){
+            selectedTime=1
+         }
+         if(e.target.options[e.target.selectedIndex].text=='Day' || e.target.options[e.target.selectedIndex].text=='መዓልቲ'){
+            selectedTime=2
+         }
+         if(e.target.options[e.target.selectedIndex].text=='Hour' || e.target.options[e.target.selectedIndex].text=='ሰዓት'){
+            selectedTime=3
+         }
+         if(e.target.options[e.target.selectedIndex].text=='Year' || e.target.options[e.target.selectedIndex].text=='ዓመት'){
+            selectedTime=4
+         }
+
+      })
+      function per(){
+         let salaryInfoArray=[{
+            per:{english:'per',tigrina:'ኣብ'},
+            salaryEnglish:['Month','Day','Hour','Year'],
+            salaryTigrina:['ወርሒ','መዓልቲ','ሰዓት','ዓመት']
+         }]
+         if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+            document.getElementById('per').textContent=salaryInfoArray[0].per.tigrina
+            for (var i = 0; i < salaryInfoArray[0].salaryTigrina.length; ++i) {
+               yearMonthDayHour[yearMonthDayHour.length] = new Option(salaryInfoArray[0].salaryTigrina[i], salaryInfoArray[0].salaryTigrina[i]);
+            }
+         }else{
+            document.getElementById('per').textContent=salaryInfoArray[0].per.english
+            for (var i = 0; i < salaryInfoArray[0].salaryEnglish.length; ++i) {
+               yearMonthDayHour[yearMonthDayHour.length] = new Option(salaryInfoArray[0].salaryEnglish[i], salaryInfoArray[0].salaryEnglish[i]);
+            }
+         }
+      }
+      
+      function payment(){
+            var paymentInfo={}
+            paymentInfo.name=document.getElementById('name').value;
+            paymentInfo.email=document.getElementById('emailId').value;
+            axios.post('/payment',{
+               paymentInfo:paymentInfo
+            }).then(function(response){
+         //    alert('bb')
+            })
+      }
+      // var registrationId=document.getElementById('registrationId')
+      // registrationId.style.display='block'
+      // var paymentCheckerId=document.getElementById('paymentCheckerId')
+      // paymentCheckerId.style.display='none'
+      function checkPaymentRegistrations(){
+            axios.get('/isThisUserHasPaymentDone').then(function(response){
+               if(response.data=='yes'){
+                  registrationId.style.display='block'
+                  paymentCheckerId.style.display='none'
+               }else{
+                  paymentCheckerId.style.display='block'
+                  registrationId.style.display='none'
+               }
+            })
+      }
+      function backtohome(){
+         window.location.href = "/";  
+      }
+      
+      function register(){
+            let language=JSON.parse(localStorage.getItem('selectedLanguage'))
+            let companyName=document.getElementById('companyName').value
+            let companyNameValidator=document.getElementById('companyNameValidator')
+            isEmployer
+            isRemoteWork
+            arrayOfSalaryExtras
+            let name=document.getElementById('name').value
+            let namevalidator=document.getElementById('namevalidator')
+            let isEmployerOrNotValidator=document.getElementById('isEmployerOrNotValidator')
+            let telephone=document.getElementById('telephone').value
+            let telephonevalidator=document.getElementById('telephonevalidator')
+            let salary=document.getElementById('salary').value
+            let salaryvalidator=document.getElementById('salaryvalidator')
+            let numberOfEmployees=document.getElementById('numberOfEmployees').value
+            var sector=document.getElementById('sector').value;
+            var professions=document.getElementById('professionsIdAtJobRegistration').value;
+            var locations=document.getElementById('locationsSearchOnJobRegister').value;
+            var description=document.getElementById('description').value;
+            var url=document.getElementById('url').value;
+            var email=document.getElementById('email').value;
+            var jobDescriptionTitle=document.getElementById('jobDescriptionTitle').value;
+            var jobtitlevalidator=document.getElementById('jobtitlevalidator')
+            var professionsvalidator=document.getElementById('professionsvalidator')
+            var emailvalidator=document.getElementById('emailvalidator')
+            var locationvalidator=document.getElementById('locationvalidator')
+            var descriptionValidator=document.getElementById('descriptionValidator')
+            var jobDescriptionTitleValidator=document.getElementById('jobDescriptionTitleValidator')
+            var fieldjobtitle=false
+            var fieldemail=false
+            var fieldprofessions=false;
+            var fieldlocations=false
+            var fielddescription=false
+            var fieldJobTitleDescription=false
+            var fieldcompanyName=false
+            var fieldName=false
+            var fieldSalary=false
+            if(companyName=='' || companyName==null){
+               if(language=='Tigrina'){
+                  companyNameValidator.innerHTML='ስም ካምባኒ የእትዉ'
+               }else{
+                  companyNameValidator.innerHTML='Enter company name'
+               }
+               companyNameValidator.style.color='red'
+               fieldcompanyName=false
+            }else{
+               companyNameValidator.innerHTML=''
+               fieldcompanyName=true
+            } 
+            if(professions=='' || professions==null){
+               if(language=='Tigrina'){
+                  professionsvalidator.innerHTML='ዝድለ ዘሎ ሞያ የእትዉ'
+               }else{
+                  professionsvalidator.innerHTML='Enter needed profession'
+               }
+               professionsvalidator.style.color='red'
+               fieldprofessions=false
+            }else{
+               professionsvalidator.innerHTML=''
+               fieldprofessions=true
+            } 
+            
+
+            if(locations=='' || locations==null){
+               if(language=='Tigrina'){
+                  locationvalidator.innerHTML='ቦታ የእቱዉ'
+               }else{
+                  locationvalidator.innerHTML='Enter location'
+               }
+               locationvalidator.style.color='red'
+               fieldlocations=false
+            }else{
+               locationvalidator.innerHTML=''
+               fieldlocations=true
+            }
+
+            if(name=='' || name==null){
+               if(language=='Tigrina'){
+                  namevalidator.innerHTML='ስምኩም የእትዉ'
+               }else{
+                  namevalidator.innerHTML='Enter name'
+               }
+               namevalidator.style.color='red'
+               fieldName=false
+            }else{
+               namevalidator.innerHTML=''
+               fieldName=true
+            } 
+
+            if(email=='' || email==null){
+               if(language=='Tigrina'){
+                  emailvalidator.innerHTML='ኢመይልኩም የእትዉ'
+               }else{
+                  emailvalidator.innerHTML='Enter email'
+               }
+               emailvalidator.style.color='red'
+               fieldemail=false
+            }else{
+               emailvalidator.innerHTML=''
+               fieldemail=true
+            }
+            if(salary=='' || salary==null){
+               if(language=='Tigrina'){
+                  salaryvalidator.innerHTML='ነዚ ስራሕ ዚ ንምፍጻም ክትከፍልዎ ትኽእሉ ደሞዝ የእትዉ'
+               }else{
+                  salaryvalidator.innerHTML='Enter salary'
+               }
+               salaryvalidator.style.color='red'
+               fieldSalary=false
+            }else{
+               salaryvalidator.innerHTML=''
+               fieldSalary=true
+            }
+
+            if(sector=='' || sector==null){
+               if(language=='Tigrina'){
+                  jobtitlevalidator.innerHTML='ኣርእስቲ ናይ ስራሕ የእቱዉ'
+               }else{
+                  jobtitlevalidator.innerHTML='Enter job title'
+               }
+            
+               jobtitlevalidator.style.color='red'
+               fieldjobtitle=false;
+            }else{
+               jobtitlevalidator.innerHTML=''
+               fieldjobtitle=true;
+            }
+            if(jobDescriptionTitle=='' || jobDescriptionTitle==null){
+               if(language=='Tigrina'){
+                  jobDescriptionTitleValidator.innerHTML='መግለጺ የእቱዉ'
+               }else{
+                  jobDescriptionTitleValidator.innerHTML='Enter job title'
+               }
+               
+               jobDescriptionTitleValidator.style.color='red'
+               fielddescription=false
+            }else{
+               jobDescriptionTitleValidator.innerHTML=''
+               fieldJobTitleDescription=true
+            }
+            if(description=='' || description==null){
+               if(language=='Tigrina'){
+                  descriptionValidator.innerHTML='መግለጺ የእቱዉ'
+               }else{
+                  descriptionValidator.innerHTML='Enter description'
+               }
+               
+               descriptionValidator.style.color='red'
+               fielddescription=false
+            }else{
+               descriptionValidator.innerHTML=''
+               fielddescription=true
+            }
+            let fieldIsEmployerChecker=false
+            if(isEmployerChecker!==true){
+               if(language=='Tigrina'){
+                  isEmployerOrNotValidator.innerHTML='ኣስራሓይ ምዃንኩም ወይ ዘይምዃንኩም ካብዞም ክልተ ነጥብታት ምረጹ'
+               }else{
+                  isEmployerOrNotValidator.innerHTML='Tell wheather you are the employer or recruiter'
+               }
+               isEmployerOrNotValidator.style.color='red'
+               fieldIsEmployerChecker=false
+            }else{
+               isEmployerOrNotValidator.innerHTML=''
+               fieldIsEmployerChecker=true
+            }
+            let fieldIsRemoteworkChecker=false
+            if(isRemoteWorkChecker!==true){
+               if(language=='Tigrina'){
+                  remoteWorkOrNotValidator.innerHTML='እቲ ደሊኹሞ ዘለኹም ስራሕ ንኽስራሕ ብርሕቀት ዝስራሕ ምዃኑን ዘይምዃኑን ካብዞም ክልተ ነጥብታት ምረጹ'
+               }else{
+                  remoteWorkOrNotValidator.innerHTML='Tell wheather the work is remote or not'
+               }
+               remoteWorkOrNotValidator.style.color='red'
+               fieldIsRemoteworkChecker=false
+            }else{
+               remoteWorkOrNotValidator.innerHTML=''
+               fieldIsRemoteworkChecker=true
+            }
+            if(fieldcompanyName==true && fieldprofessions==true && fieldlocations==true && fieldJobTitleDescription==true && fielddescription==true && fieldjobtitle==true && fieldName==true && fieldSalary==true && fieldIsRemoteworkChecker==true && fieldIsEmployerChecker==true){
+               let info={}
+               info.companyName=companyName;
+               info.jobPosterIsEmployer=isEmployer;
+               info.sector=sector;
+               info.profession=professions;
+               info.locations=locations;
+               info.isJobRemoteWork=isRemoteWork;
+               info.url=url;
+               info.jobPosterName=name;
+               info.jobPosterTelephone=telephone;
+               info.email=email;
+               if(selectedBranchId=='' || selectedBranchId==undefined || selectedBranchId==null){
+                  info.companyBranche=28;
+               }else{
+                  info.companyBranche=selectedBranchId;
+               }
+               info.numberOfEmployeesInTheCompany=numberOfEmployees
+               if(selectedTime=='' || selectedTime==undefined){
+                  selectedTime=1
+               }
+               info.salary=salary+" per "+selectedTime;
+               info.addtionalReimbursements=arrayOfSalaryExtras.toString();
+               info.jobDescriptionTitle=jobDescriptionTitle;
+               info.description=description;
+               info.language=language
+               axios.post('/registerjob',{
+                  info
+               }).then(function(response){
+                  if(language=='Tigrina'){
+                     registrationResults.innerHTML='ስራሕ ብትኽክል ተመዝጊቡ ኣሎ።ክሰርሑ ዝደልዩ ሰባት በዚ መሪጽኩሞ ዘለኹም ሞያ ዘማልኡ ሰባት ምሳኹም ክሰርሑ ክውከሱኹም ኢዮም።'
+                  }else{
+                     registrationResults.innerHTML=response.data.message
+                  }
+                  registrationResults.style.display='block'
+                  registrationResults.style.color='green'
+                  registrationResults.style.fontSize='16px'
+                  clearTextBoxes();
+               })
+            }
+         //  console.log(voornaam,achternaam,organisatie,email)
+            
+
+      }
+      function clearTextBoxes(){
+                  document.getElementById('sector').value=""
+                  document.getElementById('professionsId').value=""
+                  document.getElementById('locationsSearchOnJobRegister').value=""
+                  document.getElementById('url').value=""
+                  document.getElementById('description').value=""
+      }
+      
+         var docCollection=[]
+         var addressData=[]
+         var suggestions = [];
+         function populateAddresses(term,suggest){
+            let language=JSON.parse(localStorage.getItem('selectedLanguage'))
+            term = term.toLowerCase();
+            axios.get('/getListsOfProfessions/'+term+'/'+language).then(function(response){
+               var responseAsJson=response.data;
+               suggestions = [];
+               var addressTypeWeg
+               for(key in responseAsJson){
+                 
+                  if(language=='Tigrina'){
+                     addressTypeWeg=responseAsJson[key].tigrina;
+                     suggestions.push(addressTypeWeg);
+                     suggest(suggestions);
+                  }else{
+                     addressTypeWeg=responseAsJson[key].profession;
+                     suggestions.push(addressTypeWeg);
+                     suggest(suggestions);
+                  }
+               }
+            
+            })
+         }
+         var searchAddress = new autoComplete({
+                     selector: '#professionsIdAtJobRegistration',
+                     minChars:3,
+                     source: function(term, suggest){
+                        populateAddresses(term,suggest)
+                     },
+                     onSelect: function(e,term,item){
+                        onAddressSelected(term)
+                        suggestions=[]
+                     }
+         });
+   function onAddressSelected(item){
+               // alert(item)
+   }
+   var searchAddressOnJobRegisterLocation = new autoComplete({
+        selector: '#locationsSearchOnJobRegister',
+        minChars:3,
+        source: function(term, suggest){
+            populateSearchedAddress(term,suggest)
+        },
+        onSelect: function(e,term,item){
+            suggestions=[]
+        }
+    });
+   let selectedBranches;
+   let selectedBranchId
+   document.getElementById('branches').addEventListener('change',function(e){
+      selectedBranches=e.target.options[e.target.selectedIndex].text
+      branchesArray.find((item)=>{
+         if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+           if(item.tigrina==selectedBranches){
+            selectedBranchId=item.id
+           }
+         }else{
+           if(item.branch==selectedBranches){
+              selectedBranchId=item.id
+           }
+         }
+      })
+   })
+   let branchesArray=[]
+   function getBranches(){
+      let brancheEnglish=["Select branch"]
+      let brancheTigrina=["ክፍሊ ምረጽ"]
+      axios.get('/getBranches').then(function(response){
+         for(key in response.data){
+            brancheEnglish.push(response.data[key].branch)
+            brancheTigrina.push(response.data[key].tigrina)
+            branchesArray.push(response.data[key])
+         }
+         let dropdown = document.getElementById("branches");
+         if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+            for (var i = 0; i < brancheTigrina.length; ++i) {
+               dropdown[dropdown.length] = new Option(brancheTigrina[i], brancheTigrina[i]);
+            }
+            selectedBranches = dropdown.options[dropdown.selectedIndex].text;
+         }else{
+            for (var i = 0; i < brancheEnglish.length; ++i) {
+               dropdown[dropdown.length] = new Option(brancheEnglish[i], brancheEnglish[i]);
+            }
+            selectedBranches = dropdown.options[dropdown.selectedIndex].text;
+         }
+      })
+   }
+   getBranches()
+   </script>

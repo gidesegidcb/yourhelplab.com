@@ -1,0 +1,28 @@
+<svg width="450" height="250" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <filter id="svg_6_blur">
+   <feGaussianBlur stdDeviation="1.7"/>
+  </filter>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="252" width="452" y="-1" x="-1"/>
+ </g>
+ <g class="layer">
+  <title>Layer 1</title>
+  <line y2="18.52431" y1="18.52431" x2="404.510396" x1="37.510396" stroke-width="5" stroke="#000000" id="svg_1" fill="none"/>
+  <line y2="194.190979" y1="20.190978" x2="224.510396" x1="221.510396" stroke-width="5" stroke="#000000" id="svg_5" fill="none"/>
+  <line y2="170.250695" y1="17.256904" x2="253.697981" x1="251.697981" transform="rotate(-22.5 252.69799804687506,93.75399780273443) " stroke-width="5" stroke="#000000" id="svg_6" filter="url(#svg_6_blur)" fill="none"/>
+  <line y2="169.177105" y1="-4.822896" x2="161.510403" x1="158.510403" transform="rotate(45 160.00999450683597,82.177001953125) " stroke-width="5" stroke="#000000" id="svg_9" fill="none"/>
+  <line y2="168.177105" y1="-5.822896" x2="287.510403" x1="284.510403" transform="rotate(-45 286.010009765625,81.177001953125) " stroke-width="5" stroke="#000000" id="svg_10" fill="none"/>
+  <line y2="126.673973" y1="-26.319817" x2="298.010492" x1="296.010492" transform="rotate(-67.5 297.010009765625,50.17700195312502) " stroke-width="5" stroke="#000000" id="svg_11" filter="url(#svg_6_blur)" fill="none"/>
+  <line y2="169.673973" y1="16.680183" x2="192.010492" x1="190.010492" transform="rotate(22.5 191.010009765625,93.17700195312501) " stroke-width="5" stroke="#000000" id="svg_14" filter="url(#svg_6_blur)" fill="none"/>
+  <line y2="126.674492" y1="-26.319298" x2="147.010641" x1="145.010641" transform="rotate(67.5 146.01100158691406,50.17800140380859) " stroke-width="5" stroke="#000000" id="svg_15" filter="url(#svg_6_blur)" fill="none"/>
+  <text y="27.190978" xml:space="preserve" x="18.510396" text-anchor="middle" stroke-width="0" stroke="#000000" id="svg_16" font-size="24" font-family="serif" fill="#000000">W</text>
+  <text y="25.954024" xml:space="preserve" x="419.661427" text-anchor="middle" stroke-width="0" stroke="#000000" id="svg_17" font-size="24" font-family="serif" fill="#000000">O</text>
+  <text y="220.959258" xml:space="preserve" x="223.789029" text-anchor="middle" stroke-width="0" stroke="#000000" id="svg_18" font-size="24" font-family="serif" fill="#000000">Z</text>
+  <text y="162.959258" xml:space="preserve" x="362.789029" text-anchor="middle" stroke-width="0" stroke="#000000" id="svg_19" font-size="24" font-family="serif" fill="#000000">ZO</text>
+  <text y="165.956674" xml:space="preserve" x="91.783822" text-anchor="middle" stroke-width="0" stroke="#000000" id="svg_20" font-size="24" font-family="serif" fill="#000000">ZW</text>
+ </g>
+</svg>

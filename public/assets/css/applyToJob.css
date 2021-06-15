@@ -1,0 +1,36 @@
+#applyJobContainer{
+    display: flex;
+    margin-left:20px;
+    margin-right:20px;
+    align-content: space-between;
+}
+#userInputAtApplyForAJobContainer{
+    display: flex;
+    flex-direction: column;
+    margin-left:10px;
+    margin-right: 10px;
+    width: 40%;
+}
+.userInfoOnJobApply{
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+.userInfoOnJobApply div{
+    margin-left:10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.userInfoOnJobApply div input{
+    height: 30px;
+    border-radius: 3px;
+    border-top: 10px;
+    border-left: none;
+    border-right: none;
+}
+#backbtn{
+    margin-left:10px;
+    margin-right: 10px;
+
+}

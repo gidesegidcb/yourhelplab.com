@@ -1,0 +1,370 @@
+<div class="homePageJobSearchContainer">
+    <div class="searchAndSearchresultsContainer">
+        <div class="searchBox">
+            <div class="input-group">
+                <span id="jobsForId" class="text-muted">Jobs for </span>&nbsp;&nbsp;
+                <form onsubmit="return false;" class="pure-form" >
+                    <input id="professionsId"  type="text" name="q"   placeholder="professionals......."  class="">
+                </form>
+            </div>
+            <div class="input-group">
+                <span id="inId" class="text-muted">in</span>&nbsp;&nbsp;
+                <form onsubmit="return false;" class="pure-form" >
+                    <input id="locations"  type="text" name="q"   placeholder="location......." >
+                </form>&nbsp;
+                <div>
+                    <button class="btn-primary" onClick="search()" id="searchJobAtHomePageId"> Search </button>
+                </div>
+            </div>
+        </div>
+        <div class="jobSearchResultContainer">
+            <div>
+                <p id="numberofJobsFound"></p> 
+                <div class="searchResults" id="searchResults">
+                </div>
+            </div>
+            <div id="jobDescriptionDetailsId">
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script src="/assets/autocomplete/auto-complete.min.js"></script>
+<script src="/assets/autocomplete/auto-complete.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+<script>
+  let selectedProfessionText;
+  let selectedLocationText;
+
+let suggestions = [];
+function populateProfessions(term,suggest){
+    let language=JSON.parse(localStorage.getItem('selectedLanguage'))
+    term = term.toLowerCase();
+    axios.get('/getListsOfProfessions/'+term+"/"+language).then(function(response){
+        var responseAsJson=response.data;
+       suggestions = [];
+        for(key in responseAsJson){
+            var addressTypeWeg
+            if(language=='Tigrina'){
+                addressTypeWeg=responseAsJson[key].tigrina;
+                suggestions.push(addressTypeWeg);
+            }else{
+                addressTypeWeg=responseAsJson[key].profession;
+                suggestions.push(addressTypeWeg);
+            }
+            
+            suggest(suggestions);
+        }
+    })
+}
+let searchAddress1 = new autoComplete({
+    selector: '#professionsId',
+    minChars:3,
+    source: function(term, suggest){
+        populateProfessions(term,suggest)
+    },
+    onSelect: function(e,term,item){
+        selectedProfessionText=term;
+        suggestions=[]
+    }
+});
+function populateLocations(term,suggest){
+    let language=JSON.parse(localStorage.getItem('selectedLanguage'))
+    let profession=document.getElementById('professionsId').value
+    term = term.toLowerCase();
+    axios.get('/getListsOfLocations/'+profession+'/'+term+'/'+language).then(function(response){
+        let responseAsJson=response.data;
+       let suggestions = [];
+        for(key in responseAsJson){
+            let addressTypeWeg=responseAsJson[key].locations;
+            if(addressTypeWeg=='No data'){
+                if(responseAsJson.length==1){
+                    if(language=='Tigrina'){
+                        addressTypeWeg='በዚ ጽሒፍኩሞ ዘለኹም ሞያን ቦታን ዝዛመድ ኣይተረኽበን'
+                    }else{
+                        addressTypeWeg="Sorry, no matches found"
+                    }
+                }else{
+                    if(language=='Tigrina'){
+                        addressTypeWeg='በዚ ጽሒፍኩሞ ዘለኹም ሞያን ቦታን ዝዛመድ ኣይተረኽበን ።ኣብዞም ዝስዕቡ ቦታታት ጥራይ ኣሎ።'
+                    }else{
+                        addressTypeWeg="Sorry, no matches found. But in the following locations:"
+                    }
+                }
+            }
+            suggestions.push(addressTypeWeg);
+            suggest(suggestions);
+        }
+    })
+}
+let searchAddress2 = new autoComplete({
+    selector: '#locations',
+    minChars:3,
+    source: function(term, suggest){
+        populateLocations(term,suggest)
+    },
+    onSelect: function(e,term,item){
+        if(language=='Tigrina'){
+           if(term=='በዚ ጽሒፍኩሞ ዘለኹም ሞያን ቦታን ዝዛመድ ኣይተረኽበን'){
+            searchResults.innerHTML=''
+            searchResults.style.color='black'
+            selectedLocationText=''
+           }else if(term=='በዚ ጽሒፍኩሞ ዘለኹም ሞያን ቦታን ዝዛመድ ኣይተረኽበን ።ኣብዞም ዝስዕቡ ቦታታት ጥራይ ኣሎ።'){
+            searchResults.innerHTML=''
+            searchResults.style.color='black'
+            selectedLocationText=''
+           }else{searchResults.innerHTML=''
+             selectedLocationText=term 
+           }
+        }else{
+            if(term=='Sorry, no matches found'){
+                searchResults.innerHTML=''
+                searchResults.style.color='black'
+                selectedLocationText=''
+            }else if(term=='Sorry, no matches found. But in the following locations:'){
+                searchResults.innerHTML=''
+                searchResults.style.color='black'
+                selectedLocationText=''
+            }else{
+                searchResults.innerHTML=''
+                searchResults.style.color='black'
+                selectedLocationText=term
+            }
+            
+        }
+       
+        suggestions=[]
+    }
+});
+let searchResults=document.getElementById('searchResults')
+function search(){
+    let profession=document.getElementById('professionsId').value;
+    let location=document.getElementById('locations').value;
+    let numberofJobsFound=document.getElementById('numberofJobsFound')
+    if(profession=='' || profession==null || location=='' || location==null){
+        if(language=='Tigrina'){
+            searchResults.innerHTML='ኩሎም ቦታታት ምልእዎም መጀመርያ።'
+            searchResults.style.color='red'
+        }else{
+            searchResults.innerHTML='Please fill the above fields'
+        }
+        searchResults.style.color='red'
+        numberofJobsFound.style.display='none'
+    }else if(selectedProfessionText==''){
+        if(language=='Tigrina'){
+            searchResults.innerHTML='ሞያ ክትመርጹ ኣለኩም።ሞያ ክትጽሕፉ ከለኹም ፡ምስቲ ዝጸሓፉሞ ዝዛመድ ዝርዝራት ክመጹኹም ኢዮም ስለዚ ካብቶም ዝርዝራት ነቶም ዝጸሓፍኩሞም ቀንዲ ዝመሳሰል ወይ ልክዑ ዝኮነ ምረጹ ብድሕሪኡ ናብ ቦታ ዝብል ዘሎ መጽሓፊ ትቅጽሉ።'
+        }else{
+            searchResults.innerHTML='Please select profession from the lists that will show up on writting. Only writting the profession is not going to work but selecting from the list that matches to what you have written on the text box will be enough to go.We strongly recommend to select profession'
+        }
+        searchResults.style.color='red'
+        numberofJobsFound.style.display='none'
+    }else if(selectedLocationText==''){
+        if(language=='Tigrina'){
+            searchResults.innerHTML='ቦታ ክትመርጹ ኣለኩም።ቦታ ክትጽሕፉ ከለኹም ፡ምስቲ ዝጸሓፉሞ ዝዛመድ ዝርዝራት ክመጹኹም ኢዮም ስለዚ ካብቶም ዝርዝራት ነቶም ዝጸሓፍኩሞም ቀንዲ ዝመሳሰል ወይ ልክዑ ዝኮነ ምረጹ ብድሕሪኡ ናብ ድለ ዝብል ዘሎ መልጎም ጠውቑ ።'
+        }else{
+            searchResults.innerHTML='Please select location from the lists that will show up on writting. Only writting the location is not going to work but selecting from the list that matches to what you have written on the text box will be enough to go.We strongly recommend to select location'
+        }
+        searchResults.style.color='red'
+        numberofJobsFound.style.display='none'
+    }else{
+        axios.get('/getJobs/'+profession+'/'+location+'/'+language).then(function(response){
+            var responseData=response.data;
+            console.log("responseData")
+            console.log(responseData)
+            if(language=='Tigrina'){
+                if(response.data.length==0){
+                    numberofJobsFound.textContent=0 +" ዝተረኽቡ ውጺኢት"
+                }else{
+                    numberofJobsFound.textContent=response.data.length +" ዝተረኽቡ ውጺኢት"
+                }
+            }else{
+                if(response.data.length==0){
+                    numberofJobsFound.textContent=0 +" found"
+                }else{
+                    numberofJobsFound.textContent=response.data.length +" found"
+                }
+            }
+            if(responseData.length==0){
+                if(language=='Tigrina'){
+                    searchResults.innerHTML='ውጺኢት የለን'
+                }else{
+                    searchResults.innerHTML='No results'
+                }
+                
+                searchResults.style.color='green'
+            }else{
+                searchResults.innerHTML=''
+                
+                for(key in responseData){
+                    var url
+                    if(responseData[key].url==null || responseData[key].url==""){
+                        url='No website'
+                    }else{
+                        url=responseData[key].url
+                    }
+                    //','${responseData[key].jobDescriptionTitle}','${responseData[key].description}
+                    searchResults.innerHTML+=`
+                    <div style="width: 50rem; margin-top:10px;margin-bottom:10px" class="card">
+                        <div class="card-body" onClick="preview('${responseData[key].id}','${responseData[key].sector}','${responseData[key].profession}','${responseData[key].locations}','${url}','${responseData[key].jobDescriptionTitle}')">
+
+                            <div>
+                                <div>
+                                    <h3 class="card-title">${responseData[key].sector}</h3>&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div class="pull-right">
+                                    <p class="mb-2 text-muted">${responseData[key].registrationTime.split(' ')[0]}</p>
+                                </div>
+                                <div>
+                                    <p class="mb-2 text-muted">${responseData[key].profession},    ${responseData[key].locations}</p>
+                                    <h6 id="searchResultUrl" class="mb-2 text-muted">${url}</h6>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="card-subtitle mb-2">${responseData[key].jobDescriptionTitle}</h4>
+                                <span class="card-text text-muted">${responseData[key].description}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    `
+                    searchResults.style.display='block'
+                }
+            }
+        })
+    }
+}
+let jobDescriptionDetailsId=document.getElementById('jobDescriptionDetailsId')
+jobDescriptionDetailsId.style.display='none'
+function closeJobDescription(){
+    jobDescriptionDetailsId.style.display='none'
+}
+function preview(id,sector,profession,locations,url,jobDescriptionTitle){
+        let additionalPaymentsArray=[{english:'Holiday Payment',tigrina:'ናይ በዓል ሞቕሹሽ(Holiday Payment)'},
+        {english:'13th month',tigrina:'ኣብ መበል 13 ወርሒ(13th month)'},
+        {english:'Paid overtime',tigrina:'ናይ ሕላፍ ሰዓታት(Paid Overtime)'},
+        {english:'Bonus scheme',tigrina:'ሞቕሹሽ(Bonus scheme)'},
+        {english:'Commission',tigrina:'ካብ መኽሰብ ዝርከብ ትርፊ(Commission)'},
+        {englis:'Tip',tigrina:'ግንዖ መተባብዒ(Tip)'},
+        {english:'Signing bonus',tigrina:'ተወሳኺ ግንዖ ን መተባብዒ ኣብ ምጀመሪ ስራሕ ዝወሃብ(Signing Bonus)'},
+        {english:'Other',tigrina:'ካልእ(Other)'}]
+        let language=JSON.parse(localStorage.getItem('selectedLanguage'))
+        axios.get('/getJobDescription/'+id+'/'+language).then(function(response){
+            console.log("response.data...")
+            console.log(response.data)
+                let isRemoteWork;
+                let additionals=[]
+                additionals.push(response.data[0].addtionalReimbursements)
+                let splitedArray=additionals.toString().split(',')
+                let tigrinaAdditionalPayments=[]
+                for(key in additionalPaymentsArray){
+                    for(key2 in splitedArray){
+                        if(additionalPaymentsArray[key].english==splitedArray[key2]){
+                            tigrinaAdditionalPayments.push("<li>"+additionalPaymentsArray[key].tigrina+"</li>")
+                        }
+                    }
+                }
+                if(response.data[0].isJobRemoteWork=='yes'){
+                    if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+                        isRemoteWork="ብርሕቐት ዝስራሕ ስራሕ ኢዩ"
+                    }else{
+                        isRemoteWork="Remote work"
+                    }
+                }else{
+                    isRemoteWork=""  
+                }
+                let numberOfEmployees=''
+                if(response.data[0].numberOfEmployeesInTheCompany!=='' || response.data[0].numberOfEmployeesInTheCompany!==null){
+                    if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+                        numberOfEmployees="<label>ብዝሒ ዘለውዎ ሰራሕተኛታት:</label> <p>"+response.data[0].numberOfEmployeesInTheCompany+"</p>"
+                    }else{
+                        numberOfEmployees="<span><label>Number of employees: </label><p>"+response.data[0].numberOfEmployeesInTheCompany +"</p></span>"
+                    }
+                }
+                let salary
+                let per
+                if(response.data[0].salary!==null){
+                    if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+                        if(response.data[0].salary.split(' ')[2]==="1"){
+                            per="ወርሒ"
+                        }else if(response.data[0].salary.split(' ')[2]==="2"){
+                            per="መዓልቲ"
+                        }else if(response.data[0].salary.split(' ')[2]==="3"){
+                            per="ሰዓት"
+                        }else if(response.data[0].salary.split(' ')[2]==="4"){
+                            per="ዓመት"
+                        }
+                        salary='<label>ክክፈል ዝክእል ገንዘብ:</label>'+response.data[0].salary.split(' ')[0]+" ኣብ "+per
+                    }else{
+                        salary='<label>Salary:</label>'+response.data[0].salary
+                    }
+                }
+                let addtionalReimbursements
+                if(response.data[0].addtionalReimbursements!==null){
+                    if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+                        
+                        addtionalReimbursements="<label>ካልኦት ተወሰኽቲ ግንዖታት:</label><ul>"+tigrinaAdditionalPayments+"</ul>"
+                    }else{
+                        addtionalReimbursements="<p>Additional Reimbursements:</p><p>"+response.data[0].addtionalReimbursements+"</p>"
+                    }
+                }
+                jobDescriptionDetailsId.innerHTML=`
+                    <div style="position:relative;width: 60rem; margin-top:3rem;margin-bottom:10rem;margin-left:3rem;margin-right:3rem" class="card">
+                        <div>
+                            <small class="btn-small pull-right text-muted" onClick="closeJobDescription()" style="margin-right:10px;margin-left:10px;margin-top:10px;font-size:14px;font-weight:bold;color:'red'">X</small>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <div class="input-group">
+                                    <h3 class="card-title">${sector}</h3>&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <p class="mb-2 text-muted">${profession},    ${locations}</p>
+                                <h5 id="searchResultUrl" class="mb-2 text-muted">${url}</h5>
+                            </div>
+                            <div>
+                                <button class="btn-primary" onClick=apply(${id}) id="applyForAjobBtnId">Apply</button>
+                            </div>
+                            <hr>
+                            <div>
+                                <h4 class="card-subtitle">${jobDescriptionTitle}</h4>
+                                <span class="card-text">${response.data[0].description}</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="companyInfo">
+                            <div class="companyDetail">
+                               <span>
+                                 <strong>${response.data[0].companyName}</strong>
+                                 <small>${response.data[0].companyBranche}</small>
+                                </span>
+                               <p>${numberOfEmployees}</p>
+                            </div>
+                            <div class="personalInfo">
+                                <p>&#128589;${response.data[0].jobPosterName}</p>
+                                <p>&#128222;${response.data[0].jobPosterTelephone}</p>
+                                <p>&#128231;${response.data[0].email}</p>
+                            </div>
+                            <div class="remoteWorkPossiblities">
+                                <p>${isRemoteWork}</p>
+                            </div>  
+                            <div class="salary">
+                                <p>${salary}</p>
+                                <p>${addtionalReimbursements}</p>
+                            </div>  
+                        </div>
+                        
+                    </div>
+                ` 
+                if(language=='Tigrina'){
+                    document.getElementById('applyForAjobBtnId').textContent='ስራሕ ሕተት'
+                }else{
+                    document.getElementById('applyForAjobBtnId').textContent='Apply'
+                }
+                jobDescriptionDetailsId.style.display='block'
+        })
+}
+function apply(id){
+    localStorage.setItem("cameFromJobApply",JSON.stringify(id));
+    window.location.href='/applyForAjob'
+    // alert(id)
+}
+</script>

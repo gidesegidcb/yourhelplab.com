@@ -1,0 +1,229 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="websiteIconAndTitle">
+                        <div class="input-group">
+                                <a onClick="IconClicked()">
+                                    <img src="/assets/images/websiteIcon.png"  alt="" wid>
+                                </a>
+                                <div class="webtitleDiv">
+                                    <strong class="webTitle" id="webTitle">YOUR HELP LAB</strong> 
+                                    <p class="yourhelplabTitle">yourhelplab.com</p>
+                                </div>
+                        <div>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                             <span class="navbar-toggler-icon"></span>
+                        </button>
+                   
+            </div>   
+            <% for(var menu of menus){ %>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="text-center navbar-nav menu" >
+                        <% if(menu.menu=='Home'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu menuNearWebsiteIcon"  href="/" id="menuHome" onclick="homePage()"><%= menu.menu %></a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Login'){ %>
+                            <div class="nav-item input-group">
+                                 <a class="nav-link fontStructure singleMenu" href="/login" id="menuLogin" onclick="loginPage()"><%= menu.menu %></a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='About us'){ %>
+                            <div class="nav-item input-group">
+                                   <a class="nav-link fontStructure singleMenu" id="menuAbout" href="/about" onclick="aboutPage()"> 
+                                    <%= menu.menu %></a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Contact'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu" id="menuContact" href="/contact" onclick="contactPage()"><%= menu.menu %> <span class="sr-only">(current)</span></a>
+                            </div>
+                        <%}%>
+                        <!-- <% if(menu.menu=='Tigrina'){ %>
+                            <div class="nav-item input-group languageTitle">
+                                <i class="fa fa-language pull-right" aria-hidden="true" style='margin-left:10px;font-size:20px;margin-top: 3px;'></i>&nbsp;<a class="" onClick="changeLanguageToTigrina()" id="language"><%= menu.menu %></a>
+                            </div>
+                        <%}%> -->
+                        <% if(menu.menu=='Translation'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu" id="translationMenu" href="/Translation"><%= menu.menu %> <span class="sr-only">(current)</span></a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Registration'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu" id="menuRegister" href="/registration" onclick="userRegisterPage()"><%= menu.menu %></a>
+                            </div>
+                        <%}%>
+                        
+                        <% if(menu.menu=='forgetpassword'){ %>
+                            <div class="nav-item">
+                                <a class="nav-link fontStructure singleMenu" id="menuForgetpassword" href="/forgetpassword" onclick="forgetpasswordPage()"><%= menu.menu %></a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Job'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu menuNearWebsiteIcon" id="menuJob" href="/jobs" onclick="homePageAfterLoginPage()">
+                                        <%= menu.menu %> 
+                                    </a>
+                            </div>
+                        <%}%>
+                        
+                        <% if(menu.menu=='Applyforjob'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu menuNearWebsiteIcon" id="menuApplyForAJob" href="/applyForAjob">
+                                        <%= menu.menu %> 
+                                    </a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Job register for employers'){ %>
+                            <div class="nav-item input-group">
+                                    <a class="nav-link fontStructure singleMenu menuNearWebsiteIcon" id="menuJobRegister" href="/jobRegister" >
+                                        <%= menu.menu %>
+                                    </a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Admin'){ %>
+                            <div class="nav-item">
+                                    <a class="nav-link fontStructure singleMenu menuNearWebsiteIcon" id="menuJobRegister" href="/admin">
+                                        <%= menu.menu %> <span class="sr-only">(current)</span>
+                                    </a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='JobTrans'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu menuNearWebsiteIcon" id="jobTrans" href="/JobTrans">
+                                        <%= menu.menu %> <span class="sr-only">(current)</span>
+                                </a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Trans'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu menuNearWebsiteIcon" id="trans" href="/Trans">
+                                        <%= menu.menu %> <span class="sr-only">(current)</span>
+                                </a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Settings'){ %>
+                            <div class="nav-item input-group">
+                                <a class="nav-link fontStructure singleMenu menuNearWebsiteIcon" id="menuSettings" href="/mysettings">
+                                        <%= menu.menu %> <span class="sr-only">(current)</span>
+                                </a>
+                            </div>
+                        <%}%>
+                        <% if(menu.menu=='Logout'){ %>
+                            <div class="input-group">
+                                <a class="nav-link singleMenu menuNearWebsiteIcon" id="logoutId" href="/logout" onClick="logout()"  ><%= menu.menu %></a>
+                            </div>
+                        <%}%>
+                        
+                </div>
+            </div>
+            <% } %>
+</nav>
+<script src="/controller/commonFunctions.js"></script>
+<script>
+    function IconClicked(){
+        window.location.href='/'
+    }
+        function logout(){
+                window.location.href = "/"
+        }
+        $(document).ready(function() {
+            $('a[href$="' + location.pathname + '"]').addClass('active');
+            $('[data-toggle="tooltip"]').tooltip();
+            function titleSetter(node) {
+            return "My Tooltip text";
+            }
+        });
+        document.getElementById('webTitle').textContent='JOB ENGINE'
+    function changeLanguageToTigrina(){
+        if(document.getElementById('language').textContent=='Tigrina'){
+            document.getElementById('language').textContent='English'
+            localStorage.setItem("selectedLanguage",JSON.stringify('Tigrina'));
+            if(window.location.pathname=='/jobs' || window.location.pathname=='/jobRegister' || window.location.pathname=='/mysettings'){
+                document.getElementById('menuJob').textContent='ስራሕ';
+                document.getElementById('menuJobRegister').textContent='ምዝገባ ስራሕ';
+                document.getElementById('logoutId').textContent='መውጽኢ'
+                document.getElementById('webTitle').textContent='ቤት ዕዮ'
+                document.getElementById('menuSettings').textContent='መርኣዪ ሓበሬታ ናይ ኣካውንትና'
+                document.getElementById('settingsId').textContent='መርኣዪ ሓበሬታ ናይ ኣካውንትና'
+                
+                languageTigrinaAtHomePage()
+            }else if(window.location.pathname=='/forgetpassword'){
+                document.getElementById('menuForgetpassword').textContent='ቃለ ምስጢር ምስ ንርስዕ';
+                document.getElementById('menuHome').textContent='ስራሕ';
+                document.getElementById('menuLogin').textContent='መእተዊ ገጽ';
+                document.getElementById('menuRegister').textContent='መመዝገቢ';
+                document.getElementById('webTitle').textContent='ቤት ዕዮ'
+                languageTigrinaAtHomePage()
+            }else{
+                document.getElementById('menuHome').textContent='ስራሕ';
+                document.getElementById('menuLogin').textContent='መእተዊ ገጽ';
+                document.getElementById('menuAbout').textContent='ብዛዕባና';
+                document.getElementById('menuContact').textContent='ክንርከበሉ ንኽእል';
+                document.getElementById('menuRegister').textContent='መመዝገቢ';
+                document.getElementById('webTitle').textContent='ቤት ዕዮ';
+                // document.getElementById('translationMenu').textContent='ትርጎማ ቃላት ወይ ሓሳባት'
+            }
+            
+            languageTigrinaAtHomePage()
+        }else{
+           
+            document.getElementById('language').textContent='Tigrina'
+            localStorage.setItem("selectedLanguage",JSON.stringify('English'));
+            if(window.location.pathname=='/jobs' || window.location.pathname=='/jobRegister'){
+                document.getElementById('menuJob').textContent='Job';
+                document.getElementById('menuJobRegister').textContent='Job register for employers';
+                document.getElementById('logoutId').textContent='Logout'
+                document.getElementById('webTitle').textContent='JOB ENGINE'
+                document.getElementById('menuSettings').textContent='Settings'
+                document.getElementById('settingsId').textContent='Settings'
+                
+            }else if(window.location.pathname=='/forgetpassword'){
+                document.getElementById('menuForgetpassword').textContent='Forget password';
+                document.getElementById('menuHome').textContent='Home';
+                document.getElementById('menuLogin').textContent='Login';
+                document.getElementById('menuAbout').textContent='About us';
+                document.getElementById('menuContact').textContent='Contact us';
+                document.getElementById('menuRegister').textContent='Register';
+                document.getElementById('webTitle').textContent='JOB ENGINE'
+            }else{
+                document.getElementById('menuHome').textContent='Home';
+                document.getElementById('menuLogin').textContent='Login';
+                document.getElementById('menuAbout').textContent='About us';
+                document.getElementById('menuContact').textContent='Contact us';
+                document.getElementById('menuRegister').textContent='Register';
+                document.getElementById('webTitle').textContent='JOB ENGINE'
+                // document.getElementById('translationMenu').textContent='Translation'
+            }
+           
+            languageTigrinaAtHomePage()
+            // refreshPage()
+        }
+    }
+    $('.dropdown').click(function(){
+
+    $('.dropdown-menu').toggleClass('show');
+
+    });
+    function homePage(){
+        localStorage.setItem("cameFromJobApply",JSON.stringify("no"));
+    }
+    function homePageAfterLoginPage(){
+        localStorage.setItem("cameFromJobApply",JSON.stringify("no")); 
+    }
+    function userRegisterPage(){
+        localStorage.setItem("cameFromJobApply",JSON.stringify("no"));
+    }
+    function aboutPage(){
+        localStorage.setItem("cameFromJobApply",JSON.stringify("no"));
+    }
+    function contactPage(){
+        localStorage.setItem("cameFromJobApply",JSON.stringify("no"));
+    }
+    function forgetpasswordPage(){
+        localStorage.setItem("cameFromJobApply",JSON.stringify("no"));
+    }
+    function loginPage(){
+        localStorage.setItem("cameFromJobApply",JSON.stringify("no"));
+    }
+</script>

@@ -1,0 +1,531 @@
+<div id="languageChanger">
+</div>
+  <div class="containerUserRegistration">
+    <div class="panel panel-primary">
+             <div class="panel-heading input-group">
+                         <h3 class="text-center" id="userRegistrationFormTitle">Account registration form</h3>
+                         &nbsp;&nbsp; &nbsp;&nbsp; 
+                         <!-- <a tabindex="0" id="accountCreatingInfo" class="btn btn-small btn-circle btn-info pull-right" role="button" data-toggle="popover" data-trigger="focus" title="User name" data-content=" ">?</a> -->
+             </div>
+             <div class="panel-body">
+                      <div class="registerFormStyle">
+                            <label for="" id="usernameLabel">User name</label>
+                            <!-- <a tabindex="0" id="usernameDescriptionId" class="btn btn-small btn-circle btn-info" role="button" data-toggle="popover" data-trigger="focus" title="User name" data-content=" ">?</a> -->
+                            <input type="text" placeholder="user name" class="form-control" id="username">
+                            <p id="usernameValidation"></p>
+                            <label for="" id="passwordLabel">Password</label>
+                            <input type="password" placeholder="Password" class="form-control" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                            <p id="passwordValidation"></p>
+                            <div id="message">
+                              <h3>Password must contain the following:</h3>
+                              <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                              <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                              <p id="number" class="invalid">A <b>number</b></p>
+                              <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                            </div>
+                            <label for="" id="emailAddresLabel">Email adres</label>
+                            <input type="email" placeholder="email" class="form-control" id="email" required>
+                            <p id="emailValidator"></p>
+                            <label for="" id="locationLabel">Location</label>
+                            <!-- <a tabindex="0" id="locationDescriptionId" class="btn btn-small btn-circle btn-info" role="button" data-toggle="popover" data-trigger="focus" title="Location" data-content="">?</a> -->
+                            <input  autofocus type="text" name="q"  id="locationsFromSearchedAddresses" placeholder="City/town"  class="searchBarinputBorderStyle searchBarInputStyle form-control">
+                            <p id="locationsvalidator"></p>
+                           
+                            <div class="pull-left">
+                               <div>
+                                 <p id="doyouhaveprofessionquestion">Do you have profession ?</p>
+                               </div>
+                             <div>
+                                <div>
+                                 <span class="input-group inlineBlock">
+                                    <input type="radio" id="yesHaveProfession" onClick="yesProfession()"><p id="yes">Yes</p>
+                                 </span>
+                                </div>
+                                 <div id="listOfProfessionsOnUserRegisterForm">
+                                    <p id="chooseProfession">Choose your profession from the list</p>
+                                    <form onsubmit="return false;" class="pure-form" >
+                                       <input id="professionsIdOnUserRegistrationForm" autofocus type="text" name="q"   placeholder="profession......."  class="form-control">
+                                    </form>
+                                    <p id="professionValidatorAtUserRegistrationForm"></p>
+                                    <p id="writeShortDescription">Write a short description of yourself.</p>
+                                    <textarea name="" id="userProfessionDescription" cols="70" rows="4" class="form-control"></textarea>
+                                    <p id="professionDescriptionValidatorAtUserRegistrationForm"></p>
+                                 </div>
+                               </div>
+                              <div>
+                                 <span class="input-group">
+                                    <input type="radio" id="NoProfession" onclick="noProfession()"><p id="no">No I don't  have a profession. I need  work  that doesn't  need a profession</p>
+                                 </span>
+                                 <p id="hasProfessionOrNotSelection"></p>
+                              </div>
+                             
+                            </div>
+                            <div>
+                              <button onClick="register()" class="btn-primary pull-left" id="registerButtonId">Register</button>
+                              <button onClick="backtohome()" class="btn-info pull-right" id="gobackToLoginButton">Go to login</button> 
+                             
+                            </div>
+                            <div>
+                                <span id="registrationRequestResults"></span>
+                            </div>
+                           
+                           
+                      </div>
+             </div>
+    </div>
+ </div>
+   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <script src="/assets/autocomplete/auto-complete.min.js"></script>
+<script src="/assets/autocomplete/auto-complete.js"></script>
+  <script>
+     var selectedProfessionOnUserRegistration='';
+     var listOfProfessionsOnUserRegisterForm=document.getElementById('listOfProfessionsOnUserRegisterForm')
+     listOfProfessionsOnUserRegisterForm.style.display='none'
+    function yesProfession(){
+      NoProfession.checked=false;
+      listOfProfessionsOnUserRegisterForm.style.display='block'
+      hasProfessionOrNotSelection.textContent=''
+    }
+    function noProfession(){
+      yesHaveProfession.checked=false;
+      listOfProfessionsOnUserRegisterForm.style.display='none'
+      hasProfessionOrNotSelection.textContent=''
+    }
+    let arrayOfCollectedProfessionsOnFetch=[]
+    function populateProfessionsOnUserRegisterForm(term,suggest){
+        term = term.toLowerCase();
+        axios.get('/getListsOfProfessions/'+term+'/'+language).then(function(response){
+            var responseAsJson=response.data;
+           suggestions = [];
+            for(key in responseAsJson){
+                var addressTypeWeg
+                if(language=='Tigrina'){
+                    addressTypeWeg=responseAsJson[key].tigrina;
+                    suggestions.push(addressTypeWeg);
+                    arrayOfCollectedProfessionsOnFetch.push(responseAsJson)
+                }else{
+                    addressTypeWeg=responseAsJson[key].profession;
+                    suggestions.push(addressTypeWeg);
+                }
+                
+                suggest(suggestions);
+            }
+        })
+    }
+    var searchAddress1 = new autoComplete({
+        selector: '#professionsIdOnUserRegistrationForm',
+        minChars:3,
+        source: function(term, suggest){
+            populateProfessionsOnUserRegisterForm(term,suggest)
+        },
+        onSelect: function(e,term,item){
+         selectedProfessionOnUserRegistration=term;
+            suggestions=[]
+        }
+    });
+     $(function () {
+      $('[data-toggle="popover"]').popover()
+      })
+   //   $('.popover-dismiss').popover({
+   //    trigger: 'focus'
+   //    })
+   window.onload=function(){
+      languageTigrinaAtUserRegistrationPage()
+   }
+   var language=JSON.parse(localStorage.getItem('selectedLanguage'))
+   if(language=='Tigrina'){
+      $("#usernameDescriptionId").attr({"data-content":"መጠቀሚ ስም ፍሉይ መለለዪ ኮይኑ ናብ ቀንዲ ገጽ ናይ ኣገልግሎትና ታኣትውሉ  ኢዩ።መጠቀሚ ስም ክነእቱ ከለና ከም ስምናን ስም ኣቦናን ዘጠቃለለ ክኸውን ይኽእል ኢዩ።ናብነት ስምና መሓሪ ተኾይኑ መጥቀሚ ስምና mehari ኢልና ንጽሕፎ ስለዚ መጠቀሚ ስምና mehari ኮይኑ ኣሎ።እንተድኣ እዛ mehari ትብል ስም ካልኦት ተጠቂሞሙላ ኢዮም ዝብል መልእኽቲ ተመጺና ብካልእ መልክዕ ክንጥቀም ኣለና ማለት ስምኩምን ስም ኣቡኹምን።ግን ስምኩም ስም ኣቦኹም ክትጽሕፉ ከለኹም ኣብ መንጎ ስምኩምን ስም ኣቦኹምን ሃጓፍ ቦታ ክህሉ የብሉን።ናብነት ስምኩም መሓሪ ተኾይኑ ስም ኣቦኹም ድማ ንጉሰ ተኾይኑ መጠቀሚ ስምኩም meharinguse ክኸውን ኣለዎ።መጠቀሚ ስም ምስ ኣውጻእኩም ናብ ቀንዲ ናይ ስራሕ ምዝገባን ስራሕ ምድላዪን ዘለዎ ገጽ መታን ክትሓልፉ ኩሉ ግዜ እዚ መጠቀሚ ስምን ቃለምስጢርን ክርሳዕ የብሉን።","title":"መጠቀሚ ስም"})
+      $("#locationDescriptionId").attr({"data-content":"ኣብዚ ትነብሩሉ ቦታ ወይ ትቕመጥሉ ክትጽሕፉ ኣለኩም ብድሕሪኡ በቲ ዝጸሓፍኩሞ መሰረት ዝርዝር ንዑኡ ዝመሳሰል ምስመጸኩም ካብቲ ዝርዝራት ዘሎ ነቲ ዘእተኹሞ ዝመሳሰል ትመርጹ።","title":"ትነብሩሉ ቦታ"})
+      $("#accountCreatingInfo").attr({"data-content":"ኣካውንት መጠቀሚ ኣብዚ መርበብና ንምውጻእ ኣብዚ ተመዝገቡ።<br>ድሕሪ ምምዝጋብኩም መረጋገጺ ኢመይል ናብቲ ዘእተኹሞ ኢመይል ክስደደልኩም ኢዩ።<br>ስለዚ ኢመይልኩም ክትፍትሹ ንምሕጸነኩም።ጽቡቅ ዕድል ንምነየልኩም።","title":""})
+   }else{
+      $("#usernameDescriptionId").attr({"data-placement":"right","data-content": "User name: Please enter a name with out a space.","title":"UserName"})
+      $("#locationDescriptionId").attr({"data-content":" Location : Location is where you live.Write down the city or town you live in and select from the list","title":"Location"})
+      $("#accountCreatingInfo").attr({"data-content":"To make an account please register here.After registration you will be sent a confirmation email  and you will be able to register your account ","title":"About registration form"})
+   }
+     function languageTigrinaAtUserRegistrationPage(){
+        if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+            document.getElementById('userRegistrationFormTitle').textContent='መመዝገቢ ኣካውንት'
+            document.getElementById("usernameLabel").textContent='ስም'
+            document.getElementById("username").placeholder="መጠቀሚ ስም";
+            document.getElementById("passwordLabel").textContent='ቃለ ምስጢር'
+            document.getElementById("passwordLabel").placeholder="ቃለ ምስጢር";
+            document.getElementById("locationLabel").textContent='ቦታ';
+            document.getElementById("locationsFromSearchedAddresses").placeholder='ቦታ'
+            document.getElementById('writeShortDescription').textContent='ብዛዕባኹም ሓጺር መግለጺ ጸሓፉ'
+            document.getElementById('chooseProfession').textContent='ሞያኹም ኣብዚ ታሕቲ ብምጽሓፍ ካብቶም ዝርዝራት ን ሞያኹም ዝውክሉ ምረጹ'
+            document.getElementById("emailAddresLabel").textContent='ኢመይል'
+            document.getElementById('webTitle').textContent='ቤት ዕዮ'
+            document.getElementById("email").placeholder="ኢመይል";
+            document.getElementById("registerButtonId").textContent='ክምዝገብ ይደሊ ኣለኹ'
+            document.getElementById("gobackToLoginButton").textContent='ንድሕሪት መምለሲ';
+            document.getElementById('usernameValidation');
+            document.getElementById('passwordValidation');
+            document.getElementById('locationsvalidator');
+            document.getElementById('emailValidator')
+            document.getElementById('registrationRequestResults')
+            document.getElementById('locationsFromSearchedAddresses').placeholder='ቦታ'
+            document.getElementById('doyouhaveprofessionquestion').textContent='ሞያ ኣለኩም ?'
+            document.getElementById('yes').textContent='እወ'
+            document.getElementById('no').textContent='ኣይፋለይ የብለይን ግን ዝኾነ ዓይነት ስራሕ ማለት ሞያ ዘየድልዮም ዕዮታት ክሰርሕ ይደሊ ኢየ።'
+            document.getElementById('menuHome').textContent='ስራሕ';
+            document.getElementById('menuLogin').textContent='መእተዊ ገጽ';
+            document.getElementById('menuAbout').textContent='ብዛዕባና';
+            // document.getElementById('translationMenu').textContent='ትርጎማ ቃላት ወይ ሓሳባት'
+            document.getElementById('menuContact').textContent='ክንርከበሉ ንኽእል';
+            document.getElementById('menuRegister').textContent='መመዝገቢ';
+            document.getElementById('settingsId').textContent='መርኣዪ ሓበሬታ ናይ ኣካውንትና'
+            document.getElementById('menuJob').textContent='ስራሕ';
+            document.getElementById('menuJobRegister').textContent='ምዝገባ ስራሕ';
+            document.getElementById('logoutId').textContent='መውጽኢ'
+        }else{
+            document.getElementById('userRegistrationFormTitle').textContent='Account registration form'
+            document.getElementById("usernameLabel").textContent='User name'
+            document.getElementById("username").placeholder="user name";
+            document.getElementById("passwordLabel").textContent='Password'
+            document.getElementById("passwordLabel").placeholder="Password";
+            document.getElementById("locationLabel").textContent='Location';
+            document.getElementById('doyouhaveprofessionquestion').textContent='Do you have a profession ?'
+            document.getElementById("locationsFromSearchedAddresses").placeholder='Location'
+            document.getElementById("emailAddresLabel").textContent='Email'
+            document.getElementById("email").placeholder="Email";
+            document.getElementById("registerButtonId").textContent='Register'
+            document.getElementById("gobackToLoginButton").textContent='Go back to login';
+            document.getElementById('usernameValidation');
+            document.getElementById('passwordValidation');
+            document.getElementById('locationsvalidator');
+            document.getElementById('emailValidator')
+            document.getElementById('registrationRequestResults')
+            document.getElementById('menuHome').textContent='Home';
+            document.getElementById('menuLogin').textContent='Login';
+            document.getElementById('menuAbout').textContent='About us';
+            document.getElementById('menuContact').textContent='Contact us';
+            // document.getElementById('translationMenu').textContent='Translation'
+            document.getElementById('menuRegister').textContent='Register';
+            document.getElementById('menuJob').textContent='Job';
+            document.getElementById('menuJobRegister').textContent='Job registration';
+            document.getElementById('logoutId').textContent='Logout'
+        }
+     }
+      function backtohome(){
+         window.location.href = "/login";  
+      }
+      function register(){
+         
+          var username=document.getElementById('username').value;
+          var password=document.getElementById('password').value;
+          var locations=document.getElementById('locationsFromSearchedAddresses').value;
+          var email=document.getElementById('email').value;
+         var usernameValidation=document.getElementById('usernameValidation');
+         var passwordValidation=document.getElementById('passwordValidation');
+         var locationsvalidator=document.getElementById('locationsvalidator');
+         var emailValidator=document.getElementById('emailValidator')
+         var registrationRequestResults=document.getElementById('registrationRequestResults')
+         var fieldFirstNameLastName=false
+         var fieldUsername=false
+         var fieldPassword=false
+         var fieldLocations=false;
+         var fieldemail=false
+          if(username=='' || username==null || username=='' || username==null){
+             if(language=='Tigrina'){
+               usernameValidation.innerHTML='ስም የእትዉ'
+             }else{
+               usernameValidation.innerHTML='Fill username'
+             }
+           
+            usernameValidation.style.color='red'
+            fieldUsername=false;
+          }else{
+            usernameValidation.innerHTML=''
+            fieldUsername=true;
+          }
+          if(password=='' || password==null || password=='' || password==null){
+             if(language=='Tigrina'){
+               passwordValidation.innerHTML='ቃለ ምስጢር የእትዉ'
+             }else{
+               passwordValidation.innerHTML='Fill password'
+             }
+           
+           passwordValidation.style.color='red'
+            fieldPassword=false;
+          }else{
+            passwordValidation.innerHTML=''
+            fieldPassword=true;
+          }
+          if(locations=='' || locations==null){
+            if(language=='Tigrina'){
+               locationsvalidator.innerHTML='ትነብሩሉ ቦታ የእትዉ'
+            }else{
+               locationsvalidator.innerHTML='Fill location. where do you live?'
+            }
+            
+            locationsvalidator.style.color='red'
+             fieldLocations=false
+          }else{
+            locationsvalidator.innerHTML=''
+            fieldLocations=true
+          } 
+          if(email=='' || email==null || email.includes('@')==false){
+               if(language=='Tigrina'){
+                  emailValidator.innerHTML='ትኽክል ኢመይል የእትዉ'
+               }else{
+                  emailValidator.innerHTML='Fill correct email ' 
+               }
+             
+             emailValidator.style.color='red'
+             fieldemail=false
+          }else{
+             emailValidator.innerHTML=''
+             fieldemail=true
+          }
+         var professionDescriptionValidatorAtUserRegistrationForm=document.getElementById('professionDescriptionValidatorAtUserRegistrationForm')
+         var professionValidatorAtUserRegistrationForm=document.getElementById('professionValidatorAtUserRegistrationForm')
+         var professionsIdOnUserRegistrationForm=document.getElementById('professionsIdOnUserRegistrationForm').value
+         var userProfessionDescription=document.getElementById('userProfessionDescription').value
+         var hasProfessionOrNotSelection=document.getElementById('hasProfessionOrNotSelection')
+         var doesUserHasProfession=''
+         var userProfessionDescription
+         if(yesHaveProfession.checked==true){
+            doesUserHasProfession='yes'
+            if(language=='Tigrina'){
+               if(professionsIdOnUserRegistrationForm=='' || professionsIdOnUserRegistrationForm==null){
+                  professionValidatorAtUserRegistrationForm.textContent='ሞያ የእትዉ'
+                  professionValidatorAtUserRegistrationForm.style.color='red'
+                  professionValidatorAtUserRegistrationForm.style.display='block'
+               }else if(selectedProfessionOnUserRegistration==''){
+                  professionValidatorAtUserRegistrationForm.textContent='ሞያ ምረጹ'
+                  professionDescriptionValidatorAtUserRegistrationForm.style.display='block'
+                  professionDescriptionValidatorAtUserRegistrationForm.style.color='red'
+               }else{
+                  professionValidatorAtUserRegistrationForm.textContent=''
+                  professionValidatorAtUserRegistrationForm.style.display='none'
+               }
+               if(userProfessionDescription=='' || userProfessionDescription==null){
+                  professionDescriptionValidatorAtUserRegistrationForm.textContent='ብዛዕባኹም ሓጺር መግለጺ ጸሓፉ'
+                  professionDescriptionValidatorAtUserRegistrationForm.style.color='red'
+                  professionDescriptionValidatorAtUserRegistrationForm.style.display='block'
+               }else{
+                  professionDescriptionValidatorAtUserRegistrationForm.textContent=''
+                  professionDescriptionValidatorAtUserRegistrationForm.style.display='none'
+               }
+            }else{
+               if(professionsIdOnUserRegistrationForm=='' || professionsIdOnUserRegistrationForm==null){
+                  professionValidatorAtUserRegistrationForm.textContent='Enter profession'
+                  professionValidatorAtUserRegistrationForm.style.color='red'
+                  professionValidatorAtUserRegistrationForm.style.display='block'
+               }else if(selectedProfessionOnUserRegistration==''){
+                  professionValidatorAtUserRegistrationForm.textContent='Please select profession from list'
+                  professionDescriptionValidatorAtUserRegistrationForm.style.display='block'
+                  professionDescriptionValidatorAtUserRegistrationForm.style.color='red'
+               }else{
+                  professionValidatorAtUserRegistrationForm.textContent=''
+                  professionValidatorAtUserRegistrationForm.style.display='none'
+               }
+               if(userProfessionDescription=='' || userProfessionDescription==null){
+                  professionDescriptionValidatorAtUserRegistrationForm.textContent='Enter description about yourself'
+                  professionDescriptionValidatorAtUserRegistrationForm.style.color='red'
+                  professionDescriptionValidatorAtUserRegistrationForm.style.display='block'
+               }else{
+                  professionDescriptionValidatorAtUserRegistrationForm.textContent=''
+                  professionDescriptionValidatorAtUserRegistrationForm.style.display='none'
+               }
+            }
+            hasProfessionOrNotSelection.textContent=''
+            hasProfessionOrNotSelection.style.display='none'
+         }else if(document.getElementById('NoProfession').checked==false){
+            doesUserHasProfession='no selection'
+            if(language=='Tigrina'){
+               hasProfessionOrNotSelection.style.color='red'
+               hasProfessionOrNotSelection.textContent="ሞያ ኣለኩም ወይ የብልኩምን ዝብል ሕቶ መልሱ መጀመርያ። ኣብ እወ ወይ ኣይፋለይ ዝብል ጠውቑ"
+               hasProfessionOrNotSelection.style.display='block'
+            }else{
+               hasProfessionOrNotSelection.style.color='red'
+               hasProfessionOrNotSelection.textContent="Plese answer the question first if you have profession or not"
+               hasProfessionOrNotSelection.style.display='block'
+            }
+         }else{
+            doesUserHasProfession='No'
+            hasProfessionOrNotSelection.textContent=''
+            hasProfessionOrNotSelection.textContent=''
+            hasProfessionOrNotSelection.style.display='none'
+         }
+         var professionInfo={}
+         
+         if(doesUserHasProfession=='No'){
+            professionInfo.hasProfession='no';
+            professionInfo.profession=""
+            professionInfo.professionDescription=""
+         }else if(doesUserHasProfession=='yes'){
+            professionInfo.hasProfession='yes'
+            professionInfo.profession=professionsIdOnUserRegistrationForm
+            professionInfo.professionDescription=userProfessionDescription
+         }else{
+            professionInfo.hasProfession='Not Selected'
+         }
+
+         // alert(doesUserHasProfession)
+          if(fieldUsername==true && fieldPassword==true &&  fieldLocations==true && fieldemail==true && hasProfessionOrNotSelection.textContent==''){
+            if(professionInfo.hasProfession=='yes'){
+               if(professionValidatorAtUserRegistrationForm.textContent=='' && professionDescriptionValidatorAtUserRegistrationForm.textContent==''){
+                  axios.post('/userRegistration',{
+                        username:username,
+                        password:password,
+                        location:locations,
+                        email:email,
+                        professionInfo:professionInfo,
+                        language:language
+                  }).then(function(response){
+                        console.log(response.data)
+                        if(response.data=='emailExist'){
+                           if(language=='Tigrina'){
+                              emailValidator.innerHTML='እዚ ኢመይል እዚ ቅድሚ ሒጂ ብካልእ ሰብ ተመዝጊቡ ስለዘሎ ካልእ ኢመይል የእትዉ።'
+                           }else{
+                              emailValidator.innerHTML='This email is already registered. Please enter other email'
+                           }
+                           
+                           emailValidator.style.color='red'
+                           fieldemail=false
+                        }else if(response.data=='usernameExist'){
+                           if(language=='Tigrina'){
+                              usernameValidation.innerHTML='እዚ መጠቀሚ ስም እዚ ቅድሚ ሒጂ ብካልእ ሰብ ተመዝጊቡ ስለዘሎ ክትጥቐምሉ ኣይትኽእሉን ኢኹም።'
+                              }else{
+                                 usernameValidation.innerHTML='Username already taken. Please enter other username'
+                              }
+                        
+                           usernameValidation.style.color='red'
+                           fieldUsername=false;
+                        }else{
+                           if(language=='Tigrina'){
+                              registrationRequestResults.innerHTML='ተመዝጊብኩም ኣለኹም።ምሳና ብምምዝጋብኩም ኣዚና ነመስግን።ሕጂ ናብ ናይ መእተዊ ገጽ ንኽታትዉ ፡ናቡኡ ኪዱ።'
+                           }else{
+                              registrationRequestResults.innerHTML=response.data
+                           }
+                           registrationRequestResults.style.display='block'
+                           registrationRequestResults.style.color='green'
+                           registrationRequestResults.style.fontSize='14px'
+                        }
+                        
+                  })
+               }else{
+
+               }
+
+            }else if(professionInfo.hasProfession=='no'){
+               axios.post('/userRegistration',{
+                  username:username,
+                  password:password,
+                  location:locations,
+                  email:email,
+                  professionInfo:professionInfo,
+                  language:language
+              }).then(function(response){
+                  console.log(response.data)
+                  if(response.data=='emailExist'){
+                     if(language=='Tigrina'){
+                        emailValidator.innerHTML='እዚ ኢመይል እዚ ቅድሚ ሒጂ ብካልእ ሰብ ተመዝጊቡ ስለዘሎ ካልእ ኢመይል የእትዉ።'
+                     }else{
+                        emailValidator.innerHTML='This email is already registered. Please enter other email'
+                     }
+                     
+                     emailValidator.style.color='red'
+                     fieldemail=false
+                  }else if(response.data=='usernameExist'){
+                       if(language=='Tigrina'){
+                        usernameValidation.innerHTML='እዚ መጠቀሚ ስም እዚ ቅድሚ ሒጂ ብካልእ ሰብ ተመዝጊቡ ስለዘሎ ክትጥቐምሉ ኣይትኽእሉን ኢኹም።'
+                        }else{
+                           usernameValidation.innerHTML='Username already taken. Please enter other username'
+                        }
+                    
+                     usernameValidation.style.color='red'
+                     fieldUsername=false;
+                  }else{
+                     if(language=='Tigrina'){
+                        registrationRequestResults.innerHTML='ተመዝጊብኩም ኣለኹም።ምሳና ብምምዝጋብኩም ኣዚና ነመስግን።ሕጂ ናብ ናይ መእተዊ ገጽ ንኽታትዉ ፡ናቡኡ ኪዱ።'
+                     }else{
+                        registrationRequestResults.innerHTML=response.data
+                     }
+                     
+                     registrationRequestResults.style.display='block'
+                     registrationRequestResults.style.color='green'
+                     registrationRequestResults.style.fontSize='14px'
+                  }
+                  
+              })
+            }else{
+
+            }
+           
+          }
+         //  console.log(voornaam,achternaam,organisatie,email)
+          
+ 
+      }
+      var searchAddressOnLocation = new autoComplete({
+        selector: '#locationsFromSearchedAddresses',
+        minChars:3,
+        source: function(term, suggest){
+            populateSearchedAddress(term,suggest)
+        },
+        onSelect: function(e,term,item){
+            suggestions=[]
+        }
+    });
+  </script>
+  <script>
+   var myInput = document.getElementById("password");
+   var letter = document.getElementById("letter");
+   var capital = document.getElementById("capital");
+   var number = document.getElementById("number");
+   var length = document.getElementById("length");
+   
+   // When the user clicks on the password field, show the message box
+   myInput.onfocus = function() {
+     document.getElementById("message").style.display = "block";
+   }
+   
+   // When the user clicks outside of the password field, hide the message box
+   myInput.onblur = function() {
+     document.getElementById("message").style.display = "none";
+   }
+   
+   // When the user starts to type something inside the password field
+   myInput.onkeyup = function() {
+     // Validate lowercase letters
+     var lowerCaseLetters = /[a-z]/g;
+     if(myInput.value.match(lowerCaseLetters)) {  
+       letter.classList.remove("invalid");
+       letter.classList.add("valid");
+     } else {
+       letter.classList.remove("valid");
+       letter.classList.add("invalid");
+     }
+     
+     // Validate capital letters
+     var upperCaseLetters = /[A-Z]/g;
+     if(myInput.value.match(upperCaseLetters)) {  
+       capital.classList.remove("invalid");
+       capital.classList.add("valid");
+     } else {
+       capital.classList.remove("valid");
+       capital.classList.add("invalid");
+     }
+   
+     // Validate numbers
+     var numbers = /[0-9]/g;
+     if(myInput.value.match(numbers)) {  
+       number.classList.remove("invalid");
+       number.classList.add("valid");
+     } else {
+       number.classList.remove("valid");
+       number.classList.add("invalid");
+     }
+     
+     // Validate length
+     if(myInput.value.length >= 8) {
+       length.classList.remove("invalid");
+       length.classList.add("valid");
+     } else {
+       length.classList.remove("valid");
+       length.classList.add("invalid");
+     }
+   }
+   </script>

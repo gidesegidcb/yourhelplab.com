@@ -1,0 +1,100 @@
+ .jobRegistrationFormcontainer{
+    display: flex;
+    flex-direction:column;
+    margin-left:10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    font-size: 12px;
+}
+.jobRegistrationFormcontainer section{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(225, 236, 212);
+    width: 600px;
+}
+.jobRegistrationFormcontainer section div{
+    margin-left:10px;
+    margin-right: 10px;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+.jobRegistrationFormcontainer section div label{
+    margin-top: 10px;
+}
+#professionsIdAtJobRegistration,#jobDescriptionTitle,#locationsSearchOnJobRegister{
+    width: 80%;
+}
+.jobRegistrationFormcontainer section strong{
+    margin-left: 10px;
+    margin-top: 10px;
+    color: rgb(100, 102, 241);
+    font-weight: bold;
+    
+}
+/* .jobRegistrationFormcontainer section div span{
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+} */
+/* .jobRegistrationFormcontainer section div span {
+    position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+} */
+/* .jobRegistrationFormcontainer section div input[type='radio']{
+    padding: 10px;
+} */
+ 
+/*.jobRegistrationFormcontainer input{
+    font-size: 16px;
+}
+#registrationId{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+#registrationId section{
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+#registrationId section div{
+    margin-left:10px;
+    margin-right:10px;
+}*/
+@media(max-width:476px){
+    .jobRegistrationFormcontainer{
+        display: flex;
+        flex-direction:column;
+        margin-left:10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        /* align-items: center; */
+        font-size: 12px;
+    }
+    .jobRegistrationFormcontainer section{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: rgb(247, 242, 242);
+        width: 95%;
+    }
+    .jobRegistrationFormcontainer section div{
+        margin-left:10px;
+        margin-right: 10px;
+        margin-top:10px;
+        margin-bottom: 10px;
+    }
+    .jobRegistrationFormcontainer section div label{
+        margin-top: 10px;
+    }
+    #professionsId,#jobDescriptionTitle,#locationsSearchOnJobRegister{
+        width: 80%;
+    }
+    .jobRegistrationFormcontainer section strong{
+        margin-left: 10px;
+        margin-top: 10px;
+        color: rgb(235, 80, 139);
+        
+    }
+}

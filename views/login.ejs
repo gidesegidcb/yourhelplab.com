@@ -1,0 +1,135 @@
+    
+<div class="mainContainer">
+       
+        <div class="container2">
+                
+                <div class="loginContainer">
+                        <div id="languageChanger">
+                        </div>
+                        <!-- <p class="languageChangeMessage">To change language please go to the home page</p> -->
+                        <div class="loginBox">
+                                <form method="post" action="/login" class="loginUserInputText">
+                                        <br>
+                                        <input type="hidden" id="isThisPageCameThroughJobApply" name="isThisPageCameThroughJobApply">
+                                        <input type="text" id="selectedlanguage" name="selectedlanguage" value="English" hidden>
+                                        <label for="" class="pull-left " id="usernameLabelId"></label>
+                                        <div class="input-group username-group username">
+                                                <input id="login-username" type="text"  class="form-control inputbg usernameTextBox" name="username"  placeholder="Gebruikersnaam">
+                                        </div><br>
+                                        <label for="" class="pull-left" id="passwordLabelId"></label>
+                                        <div class="input-group password-group password">
+                                                <input id="login-password" type="password"  class="form-control inputbg passwordTextBox" name="password" placeholder="Wachtwoord">
+                                        </div><br>
+                                        <div class="loginButtonContainer">
+                                                <input type="submit" value="Login" class="btn-primary" id="loginSubmitid">
+                                                <button onClick="forgetPassword()" type="button" class="btn-primary" id="forgetpasswordId"></button>
+                                                <button onclick="gotoRegistrationRequestPage()" type="button" class="btn-primary" id="registerButtonId"></button>
+                                        </div>
+                                        <br>
+                                        <div class="alert-danger">
+                                                <%= error %>  
+                                                <% if(error===''){ %>
+                                                <div class="input-group">
+                                                        <a href="linkTo:/contactus"></a> <a href="/contact">Contact us</a>
+                                                </div>
+                                                <%}%>
+                                        </div>
+                                        <br>
+                                </form>
+                        </div>
+                </div>
+        </div>
+</div>
+
+<script src="/controller/commonFunctions.js"></script>
+       <script>
+               let isThisPageCameThroughJobApply=document.getElementById('isThisPageCameThroughJobApply');
+                window.onload=function(){
+                  isThisPageCameThroughJobApply.value=JSON.parse(localStorage.getItem('cameFromJobApply'))
+                  console.log("isThisPageCameThroughJobApply")
+                  console.log(isThisPageCameThroughJobApply)
+                }
+                function gotoRegistrationRequestPage(){
+                        window.location.href = "/registration";   
+                }
+                function forgetPassword(){
+                        window.location.href = "/forgetpassword";      
+                }
+                function languageTigrinaAtLogin(){
+    var languageinLogin=JSON.parse(localStorage.getItem('selectedLanguage'))
+    if(languageinLogin=='Tigrina'){
+            document.getElementById('selectedlanguage').value=JSON.parse(localStorage.getItem('selectedLanguage'))
+            document.getElementById('usernameLabelId').textContent="ስም:"
+            document.getElementById('passwordLabelId').textContent="ቃላ ምስጢር:"
+            document.getElementById('loginSubmitid').value="መእተዊ ገጽ"
+            document.getElementById('forgetpasswordId').textContent='ቃለ ምስጢር ተረሲዑ'
+            document.getElementById('registerButtonId').textContent='ተመዝገብ';
+            document.getElementById('login-username').placeholder='መጠቀሚ ስም';
+            document.getElementById('login-password').placeholder='ቃላ ምስጢር'
+            document.getElementById('webTitle').textContent='ቤት ዕዮ'
+            document.getElementById('menuHome').textContent='ስራሕ';
+            document.getElementById('menuLogin').textContent='መእተዊ ገጽ';
+            document.getElementById('menuAbout').textContent='ብዛዕባና';
+            document.getElementById('menuContact').textContent='ክንርከበሉ ንኽእል';
+            document.getElementById('menuRegister').textContent='መመዝገቢ';
+            document.getElementById('translationMenu').textContent='ትርጎማ ቃላት ወይ ሓሳባት'
+    }else{
+            document.getElementById('usernameLabelId').textContent="User name:"
+            document.getElementById('passwordLabelId').textContent="Password:"
+            document.getElementById('loginSubmitid').value="Login"
+            document.getElementById('forgetpasswordId').textContent='Forgetten password ?'
+            document.getElementById('registerButtonId').textContent='Register';
+            document.getElementById('login-username').placeholder='user name';
+            document.getElementById('login-password').placeholder='password'
+            document.getElementById('menuHome').textContent='Home';
+            document.getElementById('menuLogin').textContent='Login';
+            document.getElementById('menuAbout').textContent='About us';
+            document.getElementById('menuContact').textContent='Contact us';
+            document.getElementById('menuRegister').textContent='Register';
+            document.getElementById('translationMenu').textContent='Translation'
+   
+    }
+}
+languageTigrinaAtLogin();
+       </script>
+
+       <script>
+        //        const myPromise=new Promise((resolve)=>{
+        //                setTimeout(()=>{
+        //                  resolve('dog')
+        //                },100)
+        //        })
+        //        myPromise.then(result=>{
+        //             console.log("promis: "+result)   
+        //        })
+               
+        //        myObservalbe.subscribe(result=>{
+        //                console.log("observable: "+result)
+        //        })
+               //observeable
+             
+               //observeable can beheave like array
+                        // myObservalbe.fiter(result=>{
+                        //         result=='bird'
+                        // })
+                        // .subscribe(result=>{
+                        //         console.log("observable: "+result)
+                        // })
+            // to cancel subscription
+            let subscription
+        //     window.onload=function(){
+        //         subscription=myObservalbe.subscribe(result=>{
+        //                console.log("observable: in login"+result)
+        //        })
+        //        myObservalbe.subscribe({
+        //         next(x) { console.log('got value ' + x); },
+        //         error(err) { console.error('something wrong occurred: ' + err); },
+        //         complete() { console.log('done'); }
+        //         });
+        //     }
+        //     window.onbeforeunload = function(){
+        //         subscription.unsubscribe()
+        //     }
+           
+           
+       </script>

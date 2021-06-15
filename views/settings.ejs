@@ -1,0 +1,446 @@
+<div id="languageChanger">
+</div>
+<div class="settings">
+  
+  <section>
+    <div>
+      <p id="userFullName"></p>
+    </div>
+    <div>
+      <p id="email"></p>
+    </div>
+    <div class="wrapper center-block">
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading active" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <div id="location"></div>
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="changeLocationIdbtn">
+              Change location?
+            </a>
+            <br>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+              <label for="" id="locationLabel">Location</label>
+              <input id="locationsUpdateOnSettingsPage" autofocus type="text" name="q"     class="form-control">
+              <br>
+              <button class="btn-primary" onclick="updateLocation()" id="changeLocationSaveBtn">Change</button>
+              <p id="locationUpdatesInfo"></p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <div id="userProfession"></div>
+            <br>
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="editProfessionIdbtn" class="pull-right">
+              Change profession?
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+              <p id="chooseProfession">Choose your profession from the list</p>
+              <div class="input-group">
+                <form onsubmit="return false;" class="pure-form" >
+                  <input id="professionsIdOnUserSettingsForm" autofocus type="text" name="q"   placeholder=""  class="form-control">
+              </form>&nbsp;&nbsp;
+              <button onClick="SaveProfession()" id="saveProfessionIdbtn" class="btn-primary">Save</button>
+              </div>
+              <p id="professionValidatorAtUserSettingsForm"></p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <div id="userProfessionDescription"></div>
+            <br>
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="editDescriptionIdbtn" class="pull-right">
+              Edit short description?
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            <div>
+              <p id="writeShortDescription">Write short description about you.</p>
+              <textarea name="" id="professionDescription" cols="60" rows="5"></textarea><br>
+              <button onclick="updateDescription()" class="btn-primary" id="updateDescriptionIdbtn">Save</button>
+              <p id="professionDescriptionResults"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div id="cv">
+    </div>
+  </section>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+<script src="/assets/autocomplete/auto-complete.min.js"></script>
+<script src="/assets/autocomplete/auto-complete.js"></script>
+<script>
+  let userId='<%= userInfo.userId %>'
+  let username='<%= userInfo.username %>'
+  function EditDescription(){
+    editDescriptionId.style.display='block'
+    professionDescription.textContent=professionDescriptionAlreadySaved
+  }
+  let professionDescriptionResults=document.getElementById('professionDescriptionResults')
+  professionDescriptionResults.style.display='none'
+  function updateDescription(){
+    if(document.getElementById('professionDescription').value==''){
+      if(language=='Tigrina'){
+        professionDescriptionResults.textContent='መግለጺ የእቱ'
+        professionDescriptionResults.style.display='block'
+        professionDescriptionResults.style.color='red'
+      }else{
+        professionDescriptionResults.textContent='Enter Description'
+        professionDescriptionResults.style.display='block'
+        professionDescriptionResults.style.color='red'
+      }
+    }else{
+      axios.post('/updateDescription',{
+        userId:userId,
+        professionDescription:document.getElementById('professionDescription').value
+      }).then(function(response){
+          if(response.data='successfully updated'){
+            if(language=='Tigrina'){
+              professionDescriptionResults.textContent="መግለጺ ተዓቂብልኩም ኣሎ።"
+              professionDescriptionResults.style.color='green'
+              professionDescriptionResults.style.display='block'
+              professionDescriptionResults.value=''
+              getUserInfo()
+            }else{
+              professionValidatorAtUserSettingsForm.textContent=response.data
+              professionValidatorAtUserSettingsForm.style.color='green'
+              professionValidatorAtUserSettingsForm.style.display='block'
+              professionsIdOnUserSettingsForm.value=''
+              getUserInfo()
+            }
+           
+          }
+      })
+    }
+   
+  }
+   window.onload=function(){
+      languageTigrinaAtUserSettingsPageAfterLogin()
+   }
+   var language=JSON.parse(localStorage.getItem('selectedLanguage'))
+   function languageTigrinaAtUserSettingsPageAfterLogin(){
+        language=JSON.parse(localStorage.getItem('selectedLanguage'))
+        if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+            document.getElementById('menuJob').textContent='ስራሕ';
+            document.getElementById('menuJobRegister').textContent='ምዝገባ ስራሕ';
+            document.getElementById('logoutId').textContent='መውጽኢ'
+            document.getElementById('menuSettings').textContent='መርኣዪ ሓበሬታ ናይ ኣካውንትና'
+            // document.getElementById('settingsId').textContent='መርኣዪ ሓበሬታ ናይ ኣካውንትና'
+            document.getElementById('webTitle').textContent='ቤት ዕዮ'
+            document.getElementById('chooseProfession').textContent='ሞያኹም ኣብዚ ታሕቲ ብምጽሓፍ ካብቶም ዝርዝራት ን ሞያኹም ዝውክሉ ምረጹ'
+            document.getElementById('writeShortDescription').textContent='ብዛዕባኹም ሓጺር መግለጺ ጸሓፉ'
+            document.getElementById('editProfessionIdbtn').textContent='ሞያ ቀይር'
+            document.getElementById('editDescriptionIdbtn').textContent='መግለጺ ጸሓፍ ወይ ኣማሓዪሽ'
+            document.getElementById('saveProfessionIdbtn').textContent='ዓቅብ'
+            document.getElementById('updateDescriptionIdbtn').textContent='ዓቅብ'
+        }else{
+            document.getElementById('menuJob').textContent='Job';
+            document.getElementById('menuJobRegister').textContent='Job register for employers';
+            document.getElementById('logoutId').textContent='Logout'
+            document.getElementById('menuSettings').textContent='Settings'
+                document.getElementById('settingsId').textContent='Settings'
+                document.getElementById('editProfessionIdbtn').textContent='Edit Profession'
+                document.getElementById('editDescriptionIdbtn').textContent='Edit Description'
+                document.getElementById('chooseProfession').textContent='Choose your profession'
+                document.getElementById('writeShortDescription').textContent='Write/update description about you'
+                document.getElementById('saveProfessionIdbtn').textContent='Update'
+        }
+     }
+    var professionDescriptionAlreadySaved
+    var professionAlreadySaved
+    let cv=document.getElementById('cv')
+    let uploadCvForm=`
+              <div id="uploadCvFormId">
+                <form action="/uploadCv" method="post" enctype='multipart/form-data'>
+                  <div>
+                    <input type="file" name="filename" accept=".pdf" required/>
+                    <input type="hidden" id="userId" name="userId" value="<%= userInfo.userId %>"/>
+                  </div>
+                  <br>
+                  <div>
+                     <input type="submit" value="Upload CV" id="uploadCVbtnId" class="btn-primary"/>
+                  </div>
+                </form>
+              </div>  
+            `
+    let uploadCvFormTigrina=`
+              <div id="uploadCvFormId">
+                <form action="/uploadCv" method="post" enctype='multipart/form-data'>
+                  <div>
+                    <input type="file" name="filename" accept=".pdf" required/>
+                    <input type="hidden" id="userId" name="userId" value="<%= userInfo.userId %>"/>
+                  </div>
+                  <br>
+                  <div>
+                     <input type="submit" value="ጸዓን"  class="btn-primary"/>
+                  </div>
+                </form>
+              </div>  
+            `
+    function getUserInfo(){
+        axios.get('/getUserInfo/'+userId+'/'+language).then(function(response){
+          professionDescriptionAlreadySaved=response.data[0].professionDescription
+          professionAlreadySaved=response.data[0].profession
+          if(language=='Tigrina'){
+            if(response.data[0].cv==null || response.data[0].cv==undefined || response.data[0].cv==''){
+              cv.innerHTML=`
+              <p>ሲቪ ዘይጸዓንኩም ተሊኹም ሕጂ ጸዓኑ።</p>
+              <br>
+              ${uploadCvFormTigrina}
+            `
+            }else{
+              cv.innerHTML=`
+              <div>
+                <br>
+                <div class="input-group">
+                  <p class="text-mute">ሲቪ</p>:
+                  <a href="/cv/${response.data[0].cv}" download >CV</a>
+                </div>
+                <div>
+                  <a onclick="uploadCvFormShow()">ሓድሽ ሲቪ ጸዓኑ</a>
+                  <br>
+                  ${uploadCvFormTigrina}
+                </div>
+              <div>
+              `
+            }
+          }else{
+            if(response.data[0].cv==null || response.data[0].cv==undefined || response.data[0].cv==''){
+            cv.innerHTML=`
+             <p>No cv uploaded yet? then upload one.</p>
+             <br>
+             ${uploadCvForm}
+          `
+          }else{
+            cv.innerHTML=`
+            <div>
+              <br>
+              <div class="input-group">
+                <p class="text-mute">Your cv</p>:
+                <a href="/cv/${response.data[0].cv}" download >CV</a>
+              </div>
+              <div>
+                <a onclick="uploadCvFormShow()">Upload updated CV ?</a>
+                <br>
+                 ${uploadCvForm}
+              </div>
+            <div>
+            `
+          }
+          }
+          
+         
+          if(language=='Tigrina'){
+            document.getElementById('userFullName').textContent="መጠቀሚ ስም:"+username;
+            document.getElementById('email').textContent="ኢመይል:"+response.data[0].email
+            document.getElementById('location').innerHTML=
+            `
+            <label>ቦታ</label>
+            <p>${response.data[0].location}</p>
+            `
+            document.getElementById('userProfession').innerHTML=
+            `
+            <label>ሞያ</label>
+            <p>${response.data[0].profession}</p>
+            `
+            document.getElementById('changeLocationIdbtn').textContent='ቦታ ቀይር'
+            document.getElementById('editProfessionIdbtn').textContent='ሞያ ቀይር'
+            document.getElementById('saveProfessionIdbtn').textContent='ዓቅብ'
+            document.getElementById('changeLocationSaveBtn').textContent='ዓቅብ'
+            document.getElementById('editDescriptionIdbtn').textContent='መግለጺ ኣመሓይሽ'
+            document.getElementById('writeShortDescription').textContent='ብዛዕባኹም ሓጺር መግለጺ ጸሓፉ'
+            document.getElementById('updateDescriptionIdbtn').textContent='ዘመሓየሽኩሞ መግለጺ ዓቅብዎ'
+            document.getElementById('chooseProfession').textContent='ዝደለኹሞ ሞያ ካብ ዝርዝር ምረጹ።ምጽሓፍ ምስ ጀመርኩም ዝርዝራት ክመጽኹም ኢዮም።'
+            document.getElementById('locationLabel').textContent='ቦታ'
+      
+            if(professionDescriptionAlreadySaved!==null){
+              document.getElementById('userProfessionDescription').innerHTML=`
+              <label>ብዛዕባኹም ሓጺር መግለጺ</label>
+              <p>${response.data[0].professionDescription}</p>
+              `
+            }else{
+              document.getElementById('userProfessionDescription').innerHTML=`
+              <label>ብዛዕባኹም ሓጺር መግለጺ</label>
+              <p>ዝተጻሕፈ መግለጺ የለን</p>
+              `
+            }
+          }else{
+            document.getElementById('userFullName').textContent="User name:"+username;
+            document.getElementById('email').textContent="Email:"+response.data[0].email
+            document.getElementById('location').innerHTML=
+            `
+            <label>Location</label>
+            <p>${response.data[0].location}</p>
+            `
+            if(professionAlreadySaved!==null){
+              document.getElementById('userProfession').innerHTML=`
+              <label>Profession</label>
+              <p>${response.data[0].profession}</p>
+              `
+            }else{
+              document.getElementById('userProfession').innerHTML=`
+              <label>Profession</label>
+              <p>No profession</p>
+              `
+            }
+            if(professionDescriptionAlreadySaved!==null){
+              document.getElementById('userProfessionDescription').innerHTML=`
+              <label>Short Description about you:</label>
+              <p>${professionDescriptionAlreadySaved}</p>
+              `
+            }else{
+              document.getElementById('userProfessionDescription').innerHTML=`
+              <label>Short Description about you:</label>
+              <p>no description</p>
+              `
+            }
+            
+          }
+       })
+    }
+    getUserInfo()
+    var selectedProfessionOnUserSettigs
+    var professionValidatorAtUserSettingsForm=document.getElementById('professionValidatorAtUserSettingsForm')
+    professionValidatorAtUserSettingsForm.style.display='none'
+    var professionsIdOnUserSettingsForm=document.getElementById('professionsIdOnUserSettingsForm');
+    function SaveProfession(){
+      if(professionsIdOnUserSettingsForm.value==''){
+       if(language=='Tigrina'){
+        professionValidatorAtUserSettingsForm.style.display='none'
+        professionValidatorAtUserSettingsForm.textContent='ሞያ የእቱ'
+        professionValidatorAtUserSettingsForm.style.color='red';
+        professionValidatorAtUserSettingsForm.style.display='block'
+       }else{
+        professionValidatorAtUserSettingsForm.style.display='none'
+        professionValidatorAtUserSettingsForm.textContent='Enter profession'
+        professionValidatorAtUserSettingsForm.style.color='red';
+        professionValidatorAtUserSettingsForm.style.display='block'
+       }
+      }else if(selectedProfessionOnUserSettigs==null){
+        if(language=='Tigrina'){
+          professionValidatorAtUserSettingsForm.style.display='none'
+          professionValidatorAtUserSettingsForm.textContent='ሞያ ምረጽ'
+          professionValidatorAtUserSettingsForm.style.color='red';
+          professionValidatorAtUserSettingsForm.style.display='block'
+        }else{
+          professionValidatorAtUserSettingsForm.style.display='none'
+          professionValidatorAtUserSettingsForm.textContent='Select profession'
+          professionValidatorAtUserSettingsForm.style.color='red';
+          professionValidatorAtUserSettingsForm.style.display='block'
+        }
+      }else{
+        axios.post('/updateProfessionAtUserSettings',{
+           userId:userId,
+           profession:selectedProfessionOnUserSettigs,
+           language:language
+        }).then(function(response){
+          if(response.data='successfully updated'){
+            if(language=='Tigrina'){
+              professionValidatorAtUserSettingsForm.textContent="ሞያ ተቀዪርልኩም ኣሎ።"
+              professionValidatorAtUserSettingsForm.style.color='green'
+              professionValidatorAtUserSettingsForm.style.display='block'
+              professionsIdOnUserSettingsForm.value=''
+              getUserInfo()
+            }else{
+              professionValidatorAtUserSettingsForm.textContent=response.data
+              professionValidatorAtUserSettingsForm.style.color='green'
+              professionValidatorAtUserSettingsForm.style.display='block'
+              professionsIdOnUserSettingsForm.value=''
+              getUserInfo()
+            }
+           
+          }
+         
+        })
+      }
+    }
+    function populateProfessionsOnUserSettingsForm(term,suggest){
+        term = term.toLowerCase();
+        axios.get('/getListsOfProfessions/'+term+'/'+language).then(function(response){
+            var responseAsJson=response.data;
+           suggestions = [];
+            for(key in responseAsJson){
+                var addressTypeWeg
+                if(language=='Tigrina'){
+                    addressTypeWeg=responseAsJson[key].tigrina;
+                    suggestions.push(addressTypeWeg);
+                }else{
+                    addressTypeWeg=responseAsJson[key].profession;
+                    suggestions.push(addressTypeWeg);
+                }
+                
+                suggest(suggestions);
+            }
+        })
+    }
+    let searchAddress1 = new autoComplete({
+        selector: '#professionsIdOnUserSettingsForm',
+        minChars:3,
+        source: function(term, suggest){
+          populateProfessionsOnUserSettingsForm(term,suggest)
+        },
+        onSelect: function(e,term,item){
+          selectedProfessionOnUserSettigs=term;
+            suggestions=[]
+        }
+    });
+    var searchAddressOnJobRegisterLocation = new autoComplete({
+        selector: '#locationsUpdateOnSettingsPage',
+        minChars:3,
+        source: function(term, suggest){
+            populateSearchedAddress(term,suggest)
+        },
+        onSelect: function(e,term,item){
+            selectedLocation=term
+            suggestions=[]
+        }
+    });
+    let selectedLocation;
+    function updateLocation(){
+      let info={}
+      info.userId=userId;
+      info.location=selectedLocation
+        if(language=='Tigrina'){
+          if(info.location=='' || info.location==null || info.location==undefined){
+            document.getElementById('locationUpdatesInfo').style.color='red'
+            document.getElementById('locationUpdatesInfo').textContent="ዝደለኹሞ ሞያ ካብ ዝርዝር ምረጹ።ምጽሓፍ ምስ ጀመርኩም ዝርዝራት ክመጽኹም ኢዮም።"
+          }else{
+            axios.post('/updateLocation',info).then(function(response){
+                if(response.data=="there was something wrong"){
+                  document.getElementById('locationUpdatesInfo').textContent=response.data
+                }else{
+                  document.getElementById('locationUpdatesInfo').textContent="ቦታ ተቐይርልኩም ኣሎ።"
+                }
+            })
+          }
+        }else{
+          if(info.location=='' || info.location==null || info.location==undefined){
+            document.getElementById('locationUpdatesInfo').textContent="Enter location/Choose location from list"
+          }else{
+            axios.post('/updateLocation',info).then(function(response){
+                if(response.data=="there was something wrong"){
+                  document.getElementById('locationUpdatesInfo').textContent=response.data
+                }else{
+                  document.getElementById('locationUpdatesInfo').textContent="updated successfully"
+                }
+            })
+          }
+        }
+    }
+</script>

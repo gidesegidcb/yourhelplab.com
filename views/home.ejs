@@ -1,0 +1,42 @@
+
+<div id="homePageJobSearchPage">
+    <div id="languageChanger">
+    </div>
+    <%- include('jobSearch') %>    
+</div>
+
+
+<script>
+window.onload=function(){
+    languageTigrinaAtHomePage() 
+}
+var language=JSON.parse(localStorage.getItem('selectedLanguage'))
+function languageTigrinaAtHomePage(){
+    if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+        document.getElementById("professionsId").placeholder="ሞያ"
+        document.getElementById('locations').placeholder='ቦታ'
+        document.getElementById('menuHome').textContent='ስራሕ';
+        document.getElementById('webTitle').textContent='ቤት ዕዮ'
+        document.getElementById('menuLogin').textContent='መእተዊ ገጽ';
+        document.getElementById('menuAbout').textContent='ብዛዕባና';
+        document.getElementById('menuContact').textContent='ክንርከበሉ ንኽእል';
+        document.getElementById('menuRegister').textContent='መመዝገቢ';
+        document.getElementById('searchJobAtHomePageId').textContent='ድለ'
+        document.getElementById('jobsForId').textContent='ስራሕ ን'
+        document.getElementById('inId').textContent='ኣብ'
+    }else{
+        document.getElementById("professionsId").placeholder="Professionals"
+        document.getElementById('locations').placeholder='Location';
+        document.getElementById('menuHome').textContent='Home';
+        document.getElementById('menuLogin').textContent='Login';
+        document.getElementById('menuAbout').textContent='About us';
+        document.getElementById('menuContact').textContent='Contact us';
+        document.getElementById('menuRegister').textContent='Register';
+        document.getElementById('searchJobAtHomePageId').textContent='Search'
+        document.getElementById('jobsForId').textContent='Jobs for'
+        document.getElementById('inId').textContent='In'
+        document.getElementById('translationMenu').textContent='Translation'
+       
+    }
+}
+</script>

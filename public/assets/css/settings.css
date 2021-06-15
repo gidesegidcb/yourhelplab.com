@@ -1,0 +1,36 @@
+.settings{
+    margin-left:20px;
+    font-size: 16px;
+    margin-right:20px;
+    display: flex;
+}
+.settings section{
+    margin-left:30px;
+    margin-right: 10px;
+}
+#professionsIdOnUserSettingsForm{
+    width: 500px;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#professionDescription{
+    width: 500px;  
+}
+#editDescriptionId{
+    margin-top: 20px;
+    margin-bottom: 40px;  
+}
+#saveProfessionIdbtn{
+    height: 50px;
+    margin-top: 20px;
+}
+@media(max-width:476px){
+    #professionsIdOnUserSettingsForm{
+        width: 250px;
+        height: 50px;
+    } 
+    #professionDescription{
+        width: 300px;  
+    }
+}

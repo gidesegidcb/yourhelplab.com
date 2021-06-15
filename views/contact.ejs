@@ -1,0 +1,48 @@
+
+<div class="mapHomePage">
+
+    <div id="languageChanger">
+    </div>
+<div class="panel panel-primary homePageDescription">
+    
+        <div class="panel-heading">
+                <h1 class="text-center" id="contactTitle">Contact</h1>
+         </div>
+        <div class="panel-body">
+            <div class="contactus">
+                <span id="contactDescriptionId"></span>
+                <br>
+                    <span> <a href="mailto:">yourhelplab@gmail.com</a></span><br>
+                <span><a>+31686341402</a></span>
+            </div>
+        </div>
+            
+</div>
+</div>
+<script>
+    window.onload=function(){
+        languageTigrinaAtContactUsPage()
+    }
+    function languageTigrinaAtContactUsPage(){
+        if(JSON.parse(localStorage.getItem('selectedLanguage'))=='Tigrina'){
+            document.getElementById('contactTitle').textContent='ንርከበሉ';
+            document.getElementById('contactDescriptionId').innerHTML='ንሕና መንእሰያት ስራሕ ንኽረኽቡ ብቋንቅኦም ስራሕ ክደልዩን ከረኽቡን ንምኽኣል ኣበርቲዕና ንሰርሓሉ ዘለና ኢና።ሰራሕተኛን ኣስራሕን ኣብዚ መርበብና ከነራኽብ ንፍትን።ስለዚ ኩሉ ኤርትራዊ ይኹን ዘይ ኤርትራዊ ነዚ መርበብና ብምጥቃም ብዝቐለለ መንገዲ ስራሕ ናይ መርካብን ወይ ስራሕ ምፍጣርን ንኽኽእሉ ነዚ ክዉን ንሙኻን ኣብጻዕሪ ንርከብ። ንዝያዳ ሓበሬታ ኣብዚ ርኸቡና :<br> <strong>yourhelplab.com</strong>'
+            document.getElementById('menuHome').textContent='ስራሕ';
+            document.getElementById('menuLogin').textContent='መእተዊ ገጽ';
+            document.getElementById('menuAbout').textContent='ብዛዕባና';
+            document.getElementById('menuContact').textContent='ክንርከበሉ ንኽእል';
+            document.getElementById('menuRegister').textContent='መመዝገቢ';
+            document.getElementById('webTitle').textContent='ቤት ዕዮ'
+            document.getElementById('translationMenu').textContent='ትርጎማ ቃላት ወይ ሓሳባት'
+        }else{
+            document.getElementById('contactTitle').textContent='Contact';
+            document.getElementById('contactDescriptionId').innerHTML='We are a young team who do our very best to help people find the job they want We connect employees and employers. Please contact us here for more information:Customer demand has always been at the top of the development of this platform. Please contact us here for more information:<br> <strong>yourhelplab.com</strong>'
+            document.getElementById('menuHome').textContent='Home';
+            document.getElementById('menuLogin').textContent='Login';
+            document.getElementById('menuAbout').textContent='About us';
+            document.getElementById('menuContact').textContent='Contact us';
+            document.getElementById('menuRegister').textContent='Register';
+            document.getElementById('translationMenu').textContent='Translation'
+        }
+     }
+</script>

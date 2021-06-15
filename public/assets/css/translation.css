@@ -1,0 +1,128 @@
+.translation{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+#languagesAndInputsDiv{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+    box-shadow: 5px 10px 10px 10px #a3a1a1;
+}
+#translationInput{
+    margin-left:20px;
+    width: 100%;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    /* #translationInput a[cols="10"]{
+
+    } */
+}
+.languageDiv{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.btnDiv{
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.languageDiv select{
+    margin-left:10px;
+    margin-right: 10px;
+}
+#translateTextboxId{
+    margin-left: 20px;
+    margin-right: 10px;
+}
+.card{
+    width:100%;
+}
+.searchedwordsDiv{
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 600px;
+    overflow-x: hidden;
+    background-color: rgb(232, 227, 231);
+    box-shadow: 5px 10px 10px #888888;
+}
+.searchedwordsDiv #titleSearchedWords{
+    font-size: 16px;
+    color: blue;
+    font-family: 'Playfair Display', serif;
+}
+.translation select,button,textarea{
+    font-size: 14px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  .translation button{
+      color: blue;
+      border-radius: 20px;
+  }
+  #translationResults{
+      height: 300px;
+      overflow-y: scroll;
+      margin-left: 10px;
+      margin-right: 10px;
+      /* box-shadow: 5px 10px #989a9b; */
+  }
+footer{
+    position: fixed;
+    bottom: 0;
+	background-color: #2c292f;
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+    margin-top: 20px;
+    opacity: 0.9;
+}
+.footerContainer{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-content: space-between;
+    align-items: stretch;
+    font-family: 'Redressed', cursive;
+    font-size: 20px;
+}
+.footerContainer div{
+    margin-left: 10px;
+    margin-right: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color:white
+}
+.facebookPage{
+    margin-left: 10px !important;
+    margin-right: 10px;
+    margin-top:30px;
+   
+}
+.facebookPage img{
+    width: 40px;
+    height: 40px;
+}
+.appIcon{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+.resultDiv{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+  
