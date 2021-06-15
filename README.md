@@ -4,14 +4,19 @@ NB. This is a sample project of yourhelplab.com
 Any data you could get in this sample project or on the web application(www.yourhelplab.com) is a dummy data, it is not real.
 
 To test the search engine web application, 
-Go to the main page of www.yourhelplab.com and write profession ='computer manager' and place='Nijmegen Netherland' followed by clicking a search button then you will see a dummy data and if you click any of these dummy data you can further get details of the clicked ones.
+Go to the main page of www.yourhelplab.com 
+and write profession =computer manager(its autocomplet so pls select from the list) and place='Nijmegen Netherland' followed by clicking a search button then you will see a dummy data and if you click any of these dummy data you can further get details of the clicked ones in the right side on the same page.
+
 To login: use the following credentials
 username:test1
 password:test1
 
 ## Installation
-Nodejs,
-Use the package manager [npm](https://github.com/gidesegidcb/yourhelplab.com.git) to install Job search engine in your local machine.
+### prerequisite:
+   Install Nodejs latest version,
+### Next
+   clone the repository:https://github.com/gidesegidcb/yourhelplab.com.git
+   Use the package manager [npm](https://github.com/gidesegidcb/yourhelplab.com.git) to install Job search engine project application in your local machine.
 
 ```bash
 npm install
